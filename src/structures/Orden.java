@@ -7,9 +7,9 @@ public class Orden {
    private Mesa mesa;
    private EstadoOrden estado;
    private ArrayList<MenuItem> items;
-   private ArrayList<int[]> cantidades;
+   private ArrayList<Integer> cantidades;
  
-   public Orden(int id, Mesa mesa, ArrayList<MenuItem> items, ArrayList<int[]> cantidades) {
+   public Orden(int id, Mesa mesa, ArrayList<MenuItem> items, ArrayList<Integer> cantidades) {
     this.id = id;
     this.mesa = mesa;
     this.estado = EstadoOrden.ESPERA;
@@ -41,10 +41,10 @@ public class Orden {
   public void setItems(ArrayList<MenuItem> items) {
     this.items = items;
   }
-  public ArrayList<int[]> getCantidades() {
+  public ArrayList<Integer> getCantidades() {
     return cantidades;
   }
-  public void setCantidades(ArrayList<int[]> cantidades) {
+  public void setCantidades(ArrayList<Integer> cantidades) {
     this.cantidades = cantidades;
   }
 

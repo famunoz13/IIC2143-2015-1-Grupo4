@@ -22,4 +22,11 @@ public class Menu {
     return items.iterator();
   }
   
+  public MenuItem get(int i){
+    return items.get(i);
+  }
+  
+  public int size(){
+    return items.size();
+  }
 }

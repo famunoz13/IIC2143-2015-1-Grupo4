@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mesas>
+  <mesa id="1" posx="100" posy="100" capacidad="4"/>
+  <mesa id="2" posx="240" posy="100" capacidad="4"/>
+  <mesa id="3" posx="120" posy="250" capacidad="4"/>
+  <mesa id="4" posx="240" posy="230" capacidad="4"/>
+</mesas> 

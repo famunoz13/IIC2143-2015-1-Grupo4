@@ -1,7 +1,6 @@
 package structures;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Menu {
   private ArrayList<MenuItem> items;
@@ -18,8 +17,8 @@ public class Menu {
     items.remove(e);
   }
   
-  public Iterator<MenuItem> getIterator(){
-    return items.iterator();
+  public ArrayList<MenuItem> getItems(){
+    return items;
   }
   
   public MenuItem get(int i){

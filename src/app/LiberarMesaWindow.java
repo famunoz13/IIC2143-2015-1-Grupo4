@@ -22,8 +22,7 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
   private MainWindow main;
   private JButton button, button2;
   private JComboBox<Mesa> cb_options;
-  private JComboBox cb_cantidad;
-  
+
   public LiberarMesaWindow(MainWindow m) {
     super("Liberar mesa");
     
@@ -45,6 +44,7 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
         "No hay mesas ocupadas para liberar",
         "Error al liberar mesa",
         JOptionPane.WARNING_MESSAGE);
+      
       return;
     }
     

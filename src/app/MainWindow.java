@@ -1,6 +1,7 @@
 package app;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -234,8 +235,9 @@ public class MainWindow extends JFrame {
     panel_cuentas.add(scroll_cuentas, BorderLayout.CENTER);
 
     JPanel j_opciones = new JPanel();
-    j_opciones.setLayout(new GridLayout(4, 1));
-
+    j_opciones.setLayout(new GridLayout(4, 1, 2, 6));
+    j_opciones.setBorder(new EmptyBorder(8, 8, 8, 8));
+    
     btn_asignar = new JButton("Asignar Mesa");
     btn_liberar = new JButton("Liberar Mesa");
     btn_gnorden = new JButton("Generar Orden");

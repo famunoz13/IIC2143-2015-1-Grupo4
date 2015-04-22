@@ -88,10 +88,15 @@ public class VerOrdenWindow extends JFrame implements ActionListener{
     
     gbc.insets = new Insets(5,16,5,16);
     
+    JLabel label5 = new JLabel("Nota: " + orden.getNota(),JLabel.LEFT);
+    gbc.gridx = 0;
+    gbc.gridy = 5;
+    add(label5,gbc);
+    
     gbc.fill = GridBagConstraints.NONE;
     JButton button = new JButton("Aceptar");
     gbc.gridx = 0;
-    gbc.gridy = 5;
+    gbc.gridy = 6;
     gbc.weighty = 0;
     gbc.weightx = 0;
     add(button,gbc);

@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import structures.Cuenta;
 import structures.Mesa;
+import app.GenerarCuentaWindow;
 import app.MainWindow;
 
 
@@ -18,10 +18,11 @@ public class ListenerBtnGenerarCuenta implements ActionListener {
     this.main = main;
     this.mesas = main.getMesas();
   }
-  int c = 1;
+
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    main.AddCuenta(new Cuenta(c++,null,null));
+    GenerarCuentaWindow w = new GenerarCuentaWindow(main);
+    w.setVisible(true);
   }
 
 }

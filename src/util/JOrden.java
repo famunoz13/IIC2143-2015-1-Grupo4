@@ -14,7 +14,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import app.MainWindow;
-import Listeners.ListenerBtnGenerarOrden;
+import Listeners.ListenerBtnCancelarOrden;
 import Listeners.ListenerBtnVerOrden;
 import structures.*;
 
@@ -46,7 +46,7 @@ public class JOrden extends JPanel {
     gbc.gridy = 0;
     add(label,gbc);
     
-    label2 = new JLabel("Qwert yuio asd",JLabel.LEFT);
+    label2 = new JLabel(o.getMesa().toString(),JLabel.LEFT);
     gbc.gridx = 0;
     gbc.gridy = 1;
     add(label2,gbc);
@@ -86,6 +86,10 @@ public class JOrden extends JPanel {
     
     //Listeners
     btn_ver.addActionListener(new ListenerBtnVerOrden(main,orden));
+    btn_cancelar.addActionListener(new ListenerBtnCancelarOrden(main, orden));
   }
 
+  public Orden getOrden(){
+    return orden;
+  }
 }

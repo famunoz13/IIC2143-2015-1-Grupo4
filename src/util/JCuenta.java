@@ -13,17 +13,23 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import app.MainWindow;
+import Listeners.ListenerBtnCancelarCuenta;
+import Listeners.ListenerBtnIngresarPago;
 import structures.*;
 
 public class JCuenta extends JPanel {
   private Cuenta cuenta;
   
-  JLabel label,label2;
-  JButton btn_ingresar,btn_cancelar;
+  private MainWindow main;
+  
+  private JLabel label,label2;
+  private JButton btn_ingresar,btn_cancelar;
   
   private static final long serialVersionUID = 1L;
-
-  public JCuenta(Cuenta c) {
+  
+  public JCuenta(MainWindow m, Cuenta c) {
+    main = m;
     cuenta = c;
     
     setLayout(new GridBagLayout());
@@ -40,7 +46,7 @@ public class JCuenta extends JPanel {
     gbc.gridy = 0;
     add(label,gbc);
     
-    label2 = new JLabel("Qwert yuio asd",JLabel.LEFT);
+    label2 = new JLabel(c.getMesa().toString(),JLabel.LEFT);
     gbc.gridx = 0;
     gbc.gridy = 1;
     add(label2,gbc);
@@ -68,6 +74,14 @@ public class JCuenta extends JPanel {
     
     Border border = BorderFactory.createLineBorder(Color.lightGray);
     setBorder(border);
+    
+    //Listener
+    btn_ingresar.addActionListener(new ListenerBtnIngresarPago(main, cuenta));
+    btn_cancelar.addActionListener(new ListenerBtnCancelarCuenta(main, cuenta));
+  }
+  
+  public Cuenta getCuenta(){
+    return cuenta;
   }
 
 }

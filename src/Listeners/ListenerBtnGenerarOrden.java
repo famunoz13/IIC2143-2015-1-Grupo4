@@ -14,7 +14,6 @@ import app.MainWindow;
 
 public class ListenerBtnGenerarOrden implements ActionListener {
   private MainWindow main;
-  @SuppressWarnings("unused")
   private ArrayList<Mesa> mesas;
   
   public ListenerBtnGenerarOrden(MainWindow main){

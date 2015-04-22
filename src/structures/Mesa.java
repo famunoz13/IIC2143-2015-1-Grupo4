@@ -51,4 +51,8 @@ public class Mesa {
   public void setGente(int gente) {
     this.gente = gente;
   }
+  
+  public String toString(){
+    return "Mesa #"+id;
+  }
 }

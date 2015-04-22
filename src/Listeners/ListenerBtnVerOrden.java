@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import structures.MenuItem;
 import structures.Mesa;
 import structures.Orden;
 import app.MainWindow;

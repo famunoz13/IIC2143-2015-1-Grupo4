@@ -19,6 +19,7 @@ import util.JMesas;
 import util.JOrden;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -31,14 +32,16 @@ public class MainWindow extends JFrame {
   private JPanel panel, panel_mesas, panel_ordenes, panel_cuentas, panel_info;
 
   private JPanel j_ordenes,j_cuentas;
-
+  private JScrollPane scroll_cuentas, scroll_ordenes;
+  
   private ArrayList<Mesa> mesas;
   private Menu menu;
 
   private ArrayList<Orden> ordenes;
   private ArrayList<Cuenta> cuentas;
 
-  JButton btn_asignar, btn_liberar, btn_gnorden, btn_gncuenta;
+  private JButton btn_asignar, btn_liberar, btn_gnorden, btn_gncuenta;
+
   
   public MainWindow() {
     super("Restaurant");
@@ -206,9 +209,12 @@ public class MainWindow extends JFrame {
     j_ordenes.setLayout(new GridLayout(4, 1));
     ordenes = new ArrayList<>();
 
-    panel_ordenes.add(new JScrollPane(j_ordenes,
+    
+
+    scroll_ordenes =  new JScrollPane(j_ordenes,
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
+        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    panel_ordenes.add(scroll_ordenes, BorderLayout.CENTER);
   }
 
   private void initPanelCuentas() {
@@ -222,9 +228,10 @@ public class MainWindow extends JFrame {
     j_cuentas.setLayout(new GridLayout(4, 1));
     cuentas = new ArrayList<>();
 
-    panel_cuentas.add(new JScrollPane(j_cuentas,
+    scroll_cuentas = new JScrollPane(j_cuentas,
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
+        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    panel_cuentas.add(scroll_cuentas, BorderLayout.CENTER);
 
     JPanel j_opciones = new JPanel();
     j_opciones.setLayout(new GridLayout(4, 1));
@@ -273,6 +280,27 @@ public class MainWindow extends JFrame {
     j_ordenes.updateUI();
   }
   
+  public void removeOrden(Orden orden){
+    for(Component c:j_ordenes.getComponents()){
+      if(c.getClass() == JOrden.class){
+        JOrden jo = (JOrden)c;
+        if(jo.getOrden() == orden){
+          j_ordenes.remove(jo);
+          ordenes.remove(orden);
+          
+          if(ordenes.size() <= 4)
+            j_ordenes.setLayout(new GridLayout(4, 1));
+          else
+            j_ordenes.setLayout(new GridLayout(ordenes.size(), 1));
+          
+          break;
+        }
+      }
+    }
+    
+    j_ordenes.updateUI();
+  }
+  
   public void AddCuenta(Cuenta cuenta) {
     cuentas.add(cuenta);
     
@@ -281,15 +309,40 @@ public class MainWindow extends JFrame {
     else
       j_cuentas.setLayout(new GridLayout(cuentas.size(), 1));
     
-    JCuenta jcuenta = new JCuenta(cuenta);
+    JCuenta jcuenta = new JCuenta(this, cuenta);
     j_cuentas.add(jcuenta);
     j_cuentas.updateUI();
   }
 
+  public void removeCuenta(Cuenta cuenta){
+    for(Component c:j_cuentas.getComponents()){
+      if(c.getClass() == JCuenta.class){
+        JCuenta jo = (JCuenta)c;
+        if(jo.getCuenta() == cuenta){
+          j_cuentas.remove(jo);
+          cuentas.remove(cuenta);
+          
+          if(cuentas.size() <= 4)
+            j_cuentas.setLayout(new GridLayout(4, 1));
+          else
+            j_cuentas.setLayout(new GridLayout(cuentas.size(), 1));
+          
+          break;
+        }
+      }
+    }
+    
+    j_cuentas.updateUI();
+  }
+  
+  
   public ArrayList<Mesa> getMesas() {
     return mesas;
   }
 
+  public ArrayList<Orden> getOrdenes() {
+    return ordenes;
+  }
   
   public Menu getMenu() {
     return menu;

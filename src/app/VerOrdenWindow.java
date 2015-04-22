@@ -88,6 +88,7 @@ public class VerOrdenWindow extends JFrame implements ActionListener{
     
     gbc.insets = new Insets(5,16,5,16);
     
+    gbc.fill = GridBagConstraints.NONE;
     JButton button = new JButton("Aceptar");
     gbc.gridx = 0;
     gbc.gridy = 5;

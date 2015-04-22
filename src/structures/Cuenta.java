@@ -1,7 +1,6 @@
 package structures;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Cuenta {
   private int id;
@@ -27,8 +26,8 @@ public class Cuenta {
   public void setMesa(Mesa mesa) {
     this.mesa = mesa;
   }
-  public Iterator<Orden> getIterator() {
-    return ordenes.iterator();
+  public ArrayList<Orden> getOrdenes() {
+    return ordenes;
   }
 
 }

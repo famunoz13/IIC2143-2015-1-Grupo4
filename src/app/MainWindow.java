@@ -213,8 +213,8 @@ public class MainWindow extends JFrame {
     
 
     scroll_ordenes =  new JScrollPane(j_ordenes,
-        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     panel_ordenes.add(scroll_ordenes, BorderLayout.CENTER);
   }
 
@@ -230,8 +230,8 @@ public class MainWindow extends JFrame {
     cuentas = new ArrayList<>();
 
     scroll_cuentas = new JScrollPane(j_cuentas,
-        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     panel_cuentas.add(scroll_cuentas, BorderLayout.CENTER);
 
     JPanel j_opciones = new JPanel();
@@ -349,9 +349,11 @@ public class MainWindow extends JFrame {
     return ordenes;
   }
   
+  public ArrayList<Cuenta> getCuentas() {
+    return cuentas;
+  }
+  
   public Menu getMenu() {
     return menu;
   }
-
-  
 }

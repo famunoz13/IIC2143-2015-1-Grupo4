@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import structures.Cuenta;
+import structures.EstadoCuenta;
 import structures.MenuItem;
 import structures.Orden;
 
@@ -141,6 +142,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
             button3.setEnabled(false);
             textfield.setEnabled(false);
             
+            cuenta.setEstado(EstadoCuenta.PAGADA);
             main.removeCuenta(cuenta);
           }
         } catch (NumberFormatException e) {

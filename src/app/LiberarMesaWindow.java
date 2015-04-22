@@ -16,6 +16,10 @@ import javax.swing.JPanel;
 
 import structures.Mesa;
 import structures.EstadoMesa;
+import structures.Orden;
+import structures.Cuenta;
+import structures.EstadoOrden;
+import structures.EstadoCuenta;
 
 public class LiberarMesaWindow extends JFrame implements ActionListener{
   private static final long serialVersionUID = 1L;
@@ -99,13 +103,37 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
     
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
-        setVisible(false);
-        dispose();
-        
         Mesa selected_mesa = (Mesa) cb_options.getSelectedItem();
-        selected_mesa.setEstado(EstadoMesa.LIBRE);
-        selected_mesa.setGente(0);
-        main.updateMesas();
+        boolean ordenes_pendientes = false;
+        boolean cuentas_pendientes = false;
+        
+        for(Orden orden:main.getOrdenes()){
+          //Revisar si la mesa tiene ordenes pendientes
+          if(orden.getMesa().equals(selected_mesa) && orden.getEstado() != EstadoOrden.ENTREGADA){
+            ordenes_pendientes = true;
+          }
+        }
+        
+        for(Cuenta cuenta:main.getCuentas()){
+          //Revisar si la mesa tiene cuentas pendientes
+          if(cuenta.getMesa().equals(selected_mesa) && cuenta.getEstado() == EstadoCuenta.PENDIENTE){
+            cuentas_pendientes = true;
+          }
+        }
+        
+        if(!ordenes_pendientes && !cuentas_pendientes) {
+          setVisible(false);
+          dispose();
+          
+          selected_mesa.setEstado(EstadoMesa.LIBRE);
+          selected_mesa.setGente(0);
+          main.updateMesas();
+        } else {
+          JOptionPane.showMessageDialog(main,
+            "La mesa tiene órdenes o cuentas pendientes",
+            "Error al liberar mesa",
+            JOptionPane.WARNING_MESSAGE);
+        }
       }
     });
     

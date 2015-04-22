@@ -22,7 +22,7 @@ public class AsignarMesaWindow extends JFrame implements ActionListener{
   private MainWindow main;
   private JButton button, button2;
   private JComboBox<Mesa> cb_options;
-  private JComboBox cb_cantidad;
+  private JComboBox<Integer> cb_cantidad;
   
   public AsignarMesaWindow(MainWindow m) {
     super("Asignar mesa");
@@ -88,7 +88,7 @@ public class AsignarMesaWindow extends JFrame implements ActionListener{
     gbc.gridy = 2;
     add(label4,gbc);
     
-    cb_cantidad = new JComboBox();
+    cb_cantidad = new JComboBox<Integer>();
     for(int i = 1; i<=((Mesa)cb_options.getSelectedItem()).getCapacidad(); i++){
         cb_cantidad.addItem(i);
     }

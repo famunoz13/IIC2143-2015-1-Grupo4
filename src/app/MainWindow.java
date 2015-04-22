@@ -43,6 +43,7 @@ public class MainWindow extends JFrame {
 
   private JButton btn_asignar, btn_liberar, btn_gnorden, btn_gncuenta;
 
+  private int id_orden = 1;
   
   public MainWindow() {
     super("Restaurant");
@@ -255,7 +256,7 @@ public class MainWindow extends JFrame {
   private void initPanelInfo() {
     panel_info = new JPanel(new BorderLayout());
 
-    JLabel titulo = new JLabel("Info", JLabel.CENTER);
+    JLabel titulo = new JLabel("", JLabel.CENTER);
     panel_info.add(titulo, BorderLayout.PAGE_START);
 
   }
@@ -271,6 +272,8 @@ public class MainWindow extends JFrame {
 
   public void AddOrden(Orden orden) {
     ordenes.add(orden);
+    
+    orden.setId(id_orden++);
     
     if(ordenes.size() <= 4)
       j_ordenes.setLayout(new GridLayout(4, 1));

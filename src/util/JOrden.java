@@ -5,11 +5,15 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -18,13 +22,18 @@ import Listeners.ListenerBtnCancelarOrden;
 import Listeners.ListenerBtnVerOrden;
 import structures.*;
 
-public class JOrden extends JPanel {
+public class JOrden extends JPanel implements ActionListener{
   private MainWindow main;
   
   private Orden orden;
   
-  JLabel label,label2;
-  JButton btn_ver,btn_marcar,btn_cancelar;
+  private JLabel label,label2;
+  private JButton btn_ver,btn_marcar,btn_cancelar;
+  
+  private JLabel status;
+  
+  private Timer t;
+  private ActionListener taskPerformer;
   
   private static final long serialVersionUID = 1L;
 
@@ -57,6 +66,7 @@ public class JOrden extends JPanel {
     add(btn_ver,gbc);
     
     btn_marcar = new JButton("Marcar como entregada");
+    btn_marcar.setEnabled(false);
     gbc.gridx = 0;
     gbc.gridy = 3;
     add(btn_marcar,gbc);
@@ -66,7 +76,7 @@ public class JOrden extends JPanel {
     gbc.gridx = 0;
     gbc.gridy = 4;
     
-    JLabel status = new JLabel("Espera");
+    status = new JLabel("Espera");
     btn_cancelar = new JButton("Cancelar");
     
     p.add(status);
@@ -75,8 +85,9 @@ public class JOrden extends JPanel {
     add(p,gbc);
     
     status.setOpaque(true);
-    status.setBackground(Color.CYAN); 
     status.setBorder(new EmptyBorder(4,8,4,8));
+    
+    setEstado(EstadoOrden.ESPERA);
     
     p.setBackground(Color.white); 
     setBackground(Color.white); 
@@ -87,9 +98,57 @@ public class JOrden extends JPanel {
     //Listeners
     btn_ver.addActionListener(new ListenerBtnVerOrden(main,orden));
     btn_cancelar.addActionListener(new ListenerBtnCancelarOrden(main, orden));
+    btn_marcar.addActionListener(this);
+    
+    //Cambio de estado programado
+    Random randomGenerator = new Random();
+    int delay = (randomGenerator.nextInt(4) + 1) * 1000; //A lo más cinco segundos
+    taskPerformer = new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+            setEstado(EstadoOrden.LISTA);
+            btn_marcar.setEnabled(true);
+            t.removeActionListener(taskPerformer);
+        }
+    };
+    t = new Timer(delay, taskPerformer);
+    t.start();
   }
 
   public Orden getOrden(){
     return orden;
+  }
+  
+  public void setEstado(EstadoOrden e){
+    orden.setEstado(e);
+    
+    switch(e){
+    case ENTREGADA:
+      status.setText("Entregada");
+      status.setBackground(Color.BLUE); 
+      break;
+    case ESPERA:
+      status.setText("Espera");
+      status.setBackground(Color.CYAN); 
+      break;
+    case LISTA:
+      status.setText("Lista");
+      status.setBackground(Color.GREEN); 
+      break;
+    default:
+      break;
+    
+    }
+    
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if(orden.getEstado() == EstadoOrden.LISTA){
+      setEstado(EstadoOrden.ENTREGADA);
+      btn_marcar.setText("Cancelar entrega");
+    }else{
+      setEstado(EstadoOrden.LISTA);
+      btn_marcar.setText("Marcar como entregada");
+    }
   }
 }

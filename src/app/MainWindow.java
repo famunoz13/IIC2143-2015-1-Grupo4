@@ -293,13 +293,12 @@ public class MainWindow extends JFrame {
           else
             j_ordenes.setLayout(new GridLayout(ordenes.size(), 1));
           
-          return;
+          break;
         }
       }
     }
     
     j_ordenes.updateUI();
-    scroll_ordenes.updateUI();
   }
   
   public void AddCuenta(Cuenta cuenta) {
@@ -310,11 +309,33 @@ public class MainWindow extends JFrame {
     else
       j_cuentas.setLayout(new GridLayout(cuentas.size(), 1));
     
-    JCuenta jcuenta = new JCuenta(cuenta);
+    JCuenta jcuenta = new JCuenta(this, cuenta);
     j_cuentas.add(jcuenta);
     j_cuentas.updateUI();
   }
 
+  public void removeCuenta(Cuenta cuenta){
+    for(Component c:j_cuentas.getComponents()){
+      if(c.getClass() == JCuenta.class){
+        JCuenta jo = (JCuenta)c;
+        if(jo.getCuenta() == cuenta){
+          j_cuentas.remove(jo);
+          cuentas.remove(cuenta);
+          
+          if(cuentas.size() <= 4)
+            j_cuentas.setLayout(new GridLayout(4, 1));
+          else
+            j_cuentas.setLayout(new GridLayout(cuentas.size(), 1));
+          
+          break;
+        }
+      }
+    }
+    
+    j_cuentas.updateUI();
+  }
+  
+  
   public ArrayList<Mesa> getMesas() {
     return mesas;
   }

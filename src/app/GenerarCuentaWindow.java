@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import structures.Cuenta;
@@ -29,7 +30,17 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     
     main = m;
     
-    setSize(300, 400);
+    if(main.getOrdenes().size() == 0){
+      setVisible(false);
+      dispose();
+      
+      JOptionPane.showMessageDialog(main,
+          "No se pueden crear cuentas",
+          "No hay órdenes disponibles",
+          JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
     this.setTitle("Generar cuenta");
@@ -52,7 +63,18 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     cb_options = new JComboBox<>();
     
     for(Mesa mesa:main.getMesas()){
-      cb_options.addItem(mesa);
+      //Revisar si la mesa tienes ordenes
+      boolean b_orden = false;
+      
+      for(Orden o:main.getOrdenes()){
+        if(o.getMesa() == mesa){
+          b_orden = true;
+          break;
+        }
+      }
+      if(b_orden){
+        cb_options.addItem(mesa);
+      }
     }
     
     cb_options.setSelectedIndex(0);
@@ -84,8 +106,6 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     
     button2 = new JButton("Cancelar");
     p.add(button2);
-    
-    
     
     
     button.addActionListener(new ActionListener() {
@@ -131,7 +151,6 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
 
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    System.out.println(cb_options.getSelectedItem());
     
   }
 }

@@ -14,7 +14,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import app.MainWindow;
-import Listeners.ListenerBtnGenerarOrden;
+import Listeners.ListenerBtnCancelarOrden;
 import Listeners.ListenerBtnVerOrden;
 import structures.*;
 
@@ -86,6 +86,7 @@ public class JOrden extends JPanel {
     
     //Listeners
     btn_ver.addActionListener(new ListenerBtnVerOrden(main,orden));
+    btn_cancelar.addActionListener(new ListenerBtnCancelarOrden(main, orden));
   }
 
   public Orden getOrden(){

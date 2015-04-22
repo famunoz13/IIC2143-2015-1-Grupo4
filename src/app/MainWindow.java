@@ -335,6 +335,9 @@ public class MainWindow extends JFrame {
     j_cuentas.updateUI();
   }
   
+  public void updateMesas() {
+    panel_mesas.updateUI();
+  }
   
   public ArrayList<Mesa> getMesas() {
     return mesas;

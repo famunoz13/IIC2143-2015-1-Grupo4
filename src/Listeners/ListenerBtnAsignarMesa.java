@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import structures.Mesa;
+import app.AsignarMesaWindow;
 import app.MainWindow;
 
 public class ListenerBtnAsignarMesa implements ActionListener {
-  @SuppressWarnings("unused")
   private MainWindow main;
   @SuppressWarnings("unused")
   private ArrayList<Mesa> mesas;
@@ -20,7 +20,8 @@ public class ListenerBtnAsignarMesa implements ActionListener {
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    System.out.println("Asignando mesa :D");
+    AsignarMesaWindow w = new AsignarMesaWindow(main);
+    w.setVisible(true);
   }
 
 }

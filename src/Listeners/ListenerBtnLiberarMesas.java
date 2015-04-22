@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import structures.Mesa;
+import app.LiberarMesaWindow;
 import app.MainWindow;
 
 public class ListenerBtnLiberarMesas implements ActionListener {
-  @SuppressWarnings("unused")
   private MainWindow main;
   @SuppressWarnings("unused")
   private ArrayList<Mesa> mesas;
@@ -20,7 +20,8 @@ public class ListenerBtnLiberarMesas implements ActionListener {
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    System.out.println("Liberando mesa :D");
+    LiberarMesaWindow w = new LiberarMesaWindow(main);
+    w.setVisible(true);
   }
 
 }

@@ -137,6 +137,8 @@ public class AsignarMesaWindow extends JFrame implements ActionListener{
     });
     
     this.pack();
+    this.setVisible(true);
+    setLocationRelativeTo(null);
   }
   
   @Override

@@ -21,6 +21,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+import structures.EstadoMesa;
 import structures.Menu;
 import structures.MenuItem;
 import structures.Mesa;
@@ -66,8 +67,22 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
     cb_options = new JComboBox<>();
     
     for(Mesa mesa:main.getMesas()){
-       cb_options.addItem(mesa);
+      if(mesa.getEstado() == EstadoMesa.OCUPADA){
+        cb_options.addItem(mesa);
+      }
     }
+    
+    if(cb_options.getItemCount() == 0){
+      setVisible(false);
+      dispose();
+      
+      JOptionPane.showMessageDialog(main,
+          "No se pueden crear órdenes. Se debe ocupar una mesa primero.",
+          "No hay mesas ocupadas",
+          JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    
     
     cb_options.setSelectedIndex(0);
     gbc.gridx = 0;
@@ -182,11 +197,11 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
     
     
     this.pack();
+    this.setVisible(true);
+    
+    setLocationRelativeTo(null);
   }
 
-  public void generarBoleta(){
-    
-  }
   
   @Override
   public void actionPerformed(ActionEvent arg0) {

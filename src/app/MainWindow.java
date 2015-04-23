@@ -21,6 +21,7 @@ import util.JOrden;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -43,7 +44,7 @@ public class MainWindow extends JFrame {
 
   private JButton btn_asignar, btn_liberar, btn_gnorden, btn_gncuenta;
 
-  private int id_orden = 1;
+  private int id_orden = 1, id_cuenta = 1;
   
   public MainWindow() {
     super("Restaurant");
@@ -79,6 +80,8 @@ public class MainWindow extends JFrame {
     btn_liberar.addActionListener(new ListenerBtnLiberarMesas(this));
     btn_gnorden.addActionListener(new ListenerBtnGenerarOrden(this));
     btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
+    
+    setLocationRelativeTo(null);
   }
 
   private void loadMesasXML(String path) {
@@ -194,7 +197,9 @@ public class MainWindow extends JFrame {
 
     JLabel titulo = new JLabel("Mesas", JLabel.CENTER);
     panel_mesas.add(titulo, BorderLayout.PAGE_START);
-
+    titulo.setFont(new Font("Sans", Font.PLAIN, 18));
+    titulo.setBorder(new EmptyBorder(4,4,4,4));
+    
     JMesas jmesas = new JMesas(mesas);
     panel_mesas.add(jmesas, BorderLayout.CENTER);
   }
@@ -205,7 +210,9 @@ public class MainWindow extends JFrame {
     // Título
     JLabel titulo = new JLabel("Órdenes", JLabel.CENTER);
     panel_ordenes.add(titulo, BorderLayout.PAGE_START);
-
+    titulo.setFont(new Font("Sans", Font.PLAIN, 18));
+    titulo.setBorder(new EmptyBorder(4,4,4,4));
+    
     // Lista
     j_ordenes = new JPanel();
     j_ordenes.setLayout(new GridLayout(4, 1));
@@ -224,7 +231,9 @@ public class MainWindow extends JFrame {
 
     JLabel titulo = new JLabel("Cuentas", JLabel.CENTER);
     panel_cuentas.add(titulo, BorderLayout.PAGE_START);
-
+    titulo.setFont(new Font("Sans", Font.PLAIN, 18));
+    titulo.setBorder(new EmptyBorder(4,4,4,4));
+    
     // Lista
     j_cuentas = new JPanel();
     j_cuentas.setLayout(new GridLayout(4, 1));
@@ -272,7 +281,6 @@ public class MainWindow extends JFrame {
 
   public void AddOrden(Orden orden) {
     ordenes.add(orden);
-    
     orden.setId(id_orden++);
     
     if(ordenes.size() <= 4)
@@ -308,6 +316,7 @@ public class MainWindow extends JFrame {
   
   public void AddCuenta(Cuenta cuenta) {
     cuentas.add(cuenta);
+    cuenta.setId(id_cuenta++);
     
     if(cuentas.size() <= 4)
       j_cuentas.setLayout(new GridLayout(4, 1));

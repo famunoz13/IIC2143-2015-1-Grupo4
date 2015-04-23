@@ -20,8 +20,7 @@ public class ListenerBtnAsignarMesa implements ActionListener {
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    AsignarMesaWindow w = new AsignarMesaWindow(main);
-    w.setVisible(true);
+    new AsignarMesaWindow(main);
   }
 
 }

@@ -21,8 +21,7 @@ public class ListenerBtnGenerarCuenta implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    GenerarCuentaWindow w = new GenerarCuentaWindow(main);
-    w.setVisible(true);
+    new GenerarCuentaWindow(main);
   }
 
 }

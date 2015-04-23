@@ -26,8 +26,7 @@ public class ListenerBtnVerOrden implements ActionListener {
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    VerOrdenWindow w = new VerOrdenWindow(orden);
-    w.setVisible(true);
+    new VerOrdenWindow(orden);
   }
 
 }

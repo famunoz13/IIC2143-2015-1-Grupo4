@@ -16,8 +16,7 @@ public class ListenerBtnGenerarOrden implements ActionListener {
   int c = 1;
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    GenerarOrdenWindow w = new GenerarOrdenWindow(main);
-    w.setVisible(true);
+    new GenerarOrdenWindow(main);
   }
 
 }

@@ -87,8 +87,6 @@ public class JOrden extends JPanel implements ActionListener{
     status.setOpaque(true);
     status.setBorder(new EmptyBorder(4,8,4,8));
     
-    setEstado(EstadoOrden.ESPERA);
-    
     p.setBackground(Color.white); 
     setBackground(Color.white); 
     
@@ -100,18 +98,26 @@ public class JOrden extends JPanel implements ActionListener{
     btn_cancelar.addActionListener(new ListenerBtnCancelarOrden(main, orden));
     btn_marcar.addActionListener(this);
     
-    //Cambio de estado programado
-    Random randomGenerator = new Random();
-    int delay = (randomGenerator.nextInt(4) + 1) * 1000; //A lo más cinco segundos
-    taskPerformer = new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-            setEstado(EstadoOrden.LISTA);
-            btn_marcar.setEnabled(true);
-            t.removeActionListener(taskPerformer);
-        }
-    };
-    t = new Timer(delay, taskPerformer);
-    t.start();
+    //Esto evita que las cuentas canceladas sean reprogramadas como nuevas órdenes
+    if(orden.getEstado() == EstadoOrden.ESPERA){
+      setEstado(EstadoOrden.ESPERA);
+      //Cambio de estado programado
+      Random randomGenerator = new Random();
+      int delay = (randomGenerator.nextInt(4) + 1) * 1000; //A lo más cinco segundos
+      taskPerformer = new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+              setEstado(EstadoOrden.LISTA);
+              btn_marcar.setEnabled(true);
+              t.removeActionListener(taskPerformer);
+          }
+      };
+      t = new Timer(delay, taskPerformer);
+      t.start();
+    }else{
+      setEstado(orden.getEstado());
+      btn_marcar.setEnabled(true);
+      btn_marcar.setText("Cancelar entrega");
+    }
   }
 
   public Orden getOrden(){
@@ -124,15 +130,15 @@ public class JOrden extends JPanel implements ActionListener{
     switch(e){
     case ENTREGADA:
       status.setText("Entregada");
-      status.setBackground(Color.BLUE); 
+      status.setBackground(Color.GREEN); 
       break;
     case ESPERA:
       status.setText("Espera");
-      status.setBackground(Color.CYAN); 
+      status.setBackground(Color.pink); 
       break;
     case LISTA:
       status.setText("Lista");
-      status.setBackground(Color.GREEN); 
+      status.setBackground(Color.CYAN); 
       break;
     default:
       break;

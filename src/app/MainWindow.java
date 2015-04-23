@@ -359,4 +359,13 @@ public class MainWindow extends JFrame {
   public Menu getMenu() {
     return menu;
   }
+  
+  public boolean hayMesaLibre() {
+    for(Mesa mesa:this.getMesas()){
+      if(mesa.getEstado() == EstadoMesa.LIBRE){
+        return true;
+      }
+    }
+    return false;
+  }
 }

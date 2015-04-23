@@ -29,15 +29,7 @@ public class AsignarMesaWindow extends JFrame implements ActionListener{
     
     main = m;
     
-    boolean b_mesa_libre = false;
-    for(Mesa mesa:main.getMesas()){
-      //Revisar si hay mesas libres
-      if(mesa.getEstado() == EstadoMesa.LIBRE){
-        b_mesa_libre = true;
-      }
-    }
-    
-    if(!b_mesa_libre){
+    if(!m.hayMesaLibre()){
       setVisible(false);
       dispose();
       
@@ -137,16 +129,16 @@ public class AsignarMesaWindow extends JFrame implements ActionListener{
     
     cb_options.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {  	
-    	cb_cantidad.removeAllItems();    	
-    	for(int i = 1; i<=((Mesa)cb_options.getSelectedItem()).getCapacidad(); i++){
-    	  cb_cantidad.addItem(i);
-    	}
+        cb_cantidad.removeAllItems();    	
+        for(int i = 1; i<=((Mesa)cb_options.getSelectedItem()).getCapacidad(); i++){
+          cb_cantidad.addItem(i);
+        }
       }
     });
     
     this.pack();
   }
-
+  
   @Override
   public void actionPerformed(ActionEvent arg0) {
     

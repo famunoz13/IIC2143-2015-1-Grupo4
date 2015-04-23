@@ -77,8 +77,8 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
       dispose();
       
       JOptionPane.showMessageDialog(main,
-          "No se pueden crear Ã³rdenes. Se debe ocupar una mesa primero.",
-          "No hay mesas ocupadas",
+          "No se pueden crear órdenes. Se debe ocupar una mesa primero.",
+          "Error al generar orden",
           JOptionPane.WARNING_MESSAGE);
       return;
     }
@@ -150,7 +150,7 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
       j++;
     }
     
-    button1 = new JButton("Crear Orden");
+    button1 = new JButton("Crear orden");
     p.add(button1);
     
     button2 = new JButton("Cancelar");
@@ -178,8 +178,8 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
         
         if(items.size() == 0){
           JOptionPane.showMessageDialog(main,
-              "No se ingresaron items del menÃº",
-              "La orden no se crearÃ¡",
+              "No se ingresaron ítems del menú",
+              "Error al crear orden",
               JOptionPane.WARNING_MESSAGE);
         }else{
           main.AddOrden(new Orden(0, selected_mesa, items, items_q, textfield.getText()));

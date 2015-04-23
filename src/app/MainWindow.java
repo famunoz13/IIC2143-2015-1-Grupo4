@@ -208,7 +208,7 @@ public class MainWindow extends JFrame {
     panel_ordenes = new JPanel(new BorderLayout());
 
     // Título
-    JLabel titulo = new JLabel("Órdenes", JLabel.CENTER);
+    JLabel titulo = new JLabel("�rdenes", JLabel.CENTER);
     panel_ordenes.add(titulo, BorderLayout.PAGE_START);
     titulo.setFont(new Font("Sans", Font.PLAIN, 18));
     titulo.setBorder(new EmptyBorder(4,4,4,4));
@@ -251,7 +251,7 @@ public class MainWindow extends JFrame {
     btn_asignar = new JButton("Asignar Mesa");
     btn_liberar = new JButton("Liberar Mesa");
     btn_gnorden = new JButton("Generar Orden");
-    btn_gncuenta = new JButton("Generar cuenta");
+    btn_gncuenta = new JButton("Generar Cuenta");
     
     j_opciones.add(btn_asignar);
     j_opciones.add(btn_liberar);
@@ -281,14 +281,15 @@ public class MainWindow extends JFrame {
 
   public void AddOrden(Orden orden) {
     ordenes.add(orden);
-    orden.setId(id_orden++);
+    if(orden.getId()==0)
+      orden.setId(id_orden++);
     
     if(ordenes.size() <= 4)
       j_ordenes.setLayout(new GridLayout(4, 1));
     else
       j_ordenes.setLayout(new GridLayout(ordenes.size(), 1));
     
-    JOrden jorden = new JOrden(this,orden);
+    JOrden jorden = new JOrden(this, orden);
     j_ordenes.add(jorden);
     j_ordenes.updateUI();
   }

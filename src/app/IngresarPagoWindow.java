@@ -72,7 +72,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     gbc.weightx = 0;
     add(label2,gbc);
     
-    JLabel label3 = new JLabel(total + "");
+    JLabel label3 = new JLabel("$"+ total);
     gbc.gridx = 1;
     gbc.gridy = 1;
     gbc.gridwidth = 1;
@@ -84,8 +84,16 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     gbc.gridy = 2;
     gbc.gridwidth = 1;
     gbc.weightx = 0;
-    add(label4,gbc);
+    add(label4, gbc);
     
+    JLabel label5 = new JLabel("$");
+    gbc.gridx = 1;
+    gbc.gridy = 2;
+    gbc.gridwidth = 1;
+    gbc.weightx = 1;
+    add(label5, gbc);
+    
+    gbc.insets = new Insets(5,28,5,100);
     final JTextField textfield = new JTextField();
     gbc.gridx = 1;
     gbc.gridy = 2;
@@ -93,7 +101,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     gbc.weightx = 1;
     add(textfield,gbc);
     
-    
+    gbc.insets = new Insets(5,16,5,16);
     button1 = new JButton("Ingresar pago");
     gbc.fill = GridBagConstraints.NONE;
     gbc.gridx = 0;
@@ -172,7 +180,6 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
         dispose();
     }
     });
-    
     
     this.pack();
     

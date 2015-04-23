@@ -20,8 +20,8 @@ public class ListenerBtnCancelarCuenta implements ActionListener {
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    int reply = JOptionPane.showConfirmDialog(null, "La orden sera completamente elimnada", 
-        "Canelar orden",  JOptionPane.YES_NO_OPTION);
+    int reply = JOptionPane.showConfirmDialog(null, "La cuenta será eliminada", 
+        "Cancelar cuenta",  JOptionPane.YES_NO_OPTION);
     if (reply == JOptionPane.YES_OPTION)
     {
       main.removeCuenta(cuenta);

@@ -19,8 +19,8 @@ public class ListenerBtnCancelarOrden implements ActionListener {
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    int reply = JOptionPane.showConfirmDialog(null, "La orden sera completamente elimnada", 
-        "Canelar orden",  JOptionPane.YES_NO_OPTION);
+    int reply = JOptionPane.showConfirmDialog(null, "La orden será completamente eliminada", 
+        "Cancelar orden",  JOptionPane.YES_NO_OPTION);
     if (reply == JOptionPane.YES_OPTION)
     {
       main.removeOrden(orden);

@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import structures.Cuenta;
+import structures.EstadoOrden;
 import structures.Mesa;
 import structures.Orden;
 
@@ -63,11 +64,11 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     cb_options = new JComboBox<>();
     
     for(Mesa mesa:main.getMesas()){
-      //Revisar si la mesa tienes ordenes
+      //Revisar si la mesa tienes ordenes entregadas
       boolean b_orden = false;
       
       for(Orden o:main.getOrdenes()){
-        if(o.getMesa() == mesa){
+        if(o.getMesa() == mesa && o.getEstado() == EstadoOrden.ENTREGADA){
           b_orden = true;
           break;
         }
@@ -76,6 +77,18 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
         cb_options.addItem(mesa);
       }
     }
+    
+    if(cb_options.getItemCount() == 0){
+      setVisible(false);
+      dispose();
+      
+      JOptionPane.showMessageDialog(main,
+          "No se pueden crear cuentas",
+          "No hay órdenes disponibles.",
+          JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    
     
     cb_options.setSelectedIndex(0);
     gbc.gridx = 0;
@@ -122,7 +135,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
         do{
           del = false;
           for(Orden o:ordenes){
-            if(o.getMesa() == selected_mesa){
+            if(o.getMesa() == selected_mesa && o.getEstado() == EstadoOrden.ENTREGADA){
               ordenes_cuenta.add(o);
               //Eliminar todas órdenes de la lista
               main.removeOrden(o);
@@ -147,6 +160,9 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     cb_options.addActionListener(this);
     
     this.pack();
+    this.setVisible(true);
+    
+    setLocationRelativeTo(null);
   }
 
   @Override

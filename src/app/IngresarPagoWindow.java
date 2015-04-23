@@ -142,12 +142,15 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
             label_pago_monto.setText("$" + pago);
             label_vuelto_monto.setText("$" + (pago - total));
             button1.setEnabled(false);
+            button1.setText("PAGO INGRESADO");
             button2.setEnabled(true);
             button3.setEnabled(false);
             textfield.setEnabled(false);
             
             cuenta.setEstado(EstadoCuenta.PAGADA);
             main.removeCuenta(cuenta);
+            
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
           }
         } catch (NumberFormatException e) {
           prev.setText("- Error en el input -");
@@ -157,6 +160,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     
     button2.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
         dispose();
     }
@@ -171,6 +175,8 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     
     
     this.pack();
+    
+    setLocationRelativeTo(null);
   }
 
   private void initBoleta() {
@@ -298,6 +304,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     boleta.add(prev,gbc);
     
     boleta.setBackground(Color.WHITE);
+    this.setVisible(true);
   }
 
   public void generarBoleta(){

@@ -20,8 +20,7 @@ public class ListenerBtnLiberarMesas implements ActionListener {
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    LiberarMesaWindow w = new LiberarMesaWindow(main);
-    w.setVisible(true);
+    new LiberarMesaWindow(main);
   }
 
 }

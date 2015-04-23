@@ -47,7 +47,7 @@ public class JMesas extends JPanel {
           break;
         }
         
-        g2d.drawRect((int)(mesa.getPosx() - r_mesas/2), (int)(mesa.getPosy() - r_mesas/2), r_mesas, r_mesas);
+        g2d.fillRect((int)(mesa.getPosx() - r_mesas/2), (int)(mesa.getPosy() - r_mesas/2), r_mesas, r_mesas);
         
         g2d.setColor(Color.black);
         g2d.drawString("#"+mesa.getId(), mesa.getPosx()-10, mesa.getPosy()+5);

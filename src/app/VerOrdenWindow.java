@@ -104,6 +104,9 @@ public class VerOrdenWindow extends JFrame implements ActionListener{
     button.addActionListener(this);
     
     this.pack();
+    this.setVisible(true);
+    
+    setLocationRelativeTo(null);
   }
 
   @Override

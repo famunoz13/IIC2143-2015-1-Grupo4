@@ -130,9 +130,12 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
           main.updateMesas();
         } else {
           JOptionPane.showMessageDialog(main,
-            "La mesa tiene órdenes o cuentas pendientes",
+            "La mesa tiene Ã³rdenes o cuentas pendientes",
             "Error al liberar mesa",
             JOptionPane.WARNING_MESSAGE);
+          setVisible(false);
+          dispose();
+          return;
         }
       }
     });
@@ -147,6 +150,9 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
     cb_options.addActionListener(this);
     
     this.pack();
+    this.setVisible(true);
+    
+    setLocationRelativeTo(null);
   }
 
   @Override

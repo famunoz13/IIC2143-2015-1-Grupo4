@@ -19,8 +19,7 @@ public class ListenerBtnIngresarPago implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    IngresarPagoWindow w = new IngresarPagoWindow(main, cuenta);
-    w.setVisible(true);
+    new IngresarPagoWindow(main, cuenta);
   }
 
 }

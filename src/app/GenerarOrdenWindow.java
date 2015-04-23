@@ -158,6 +158,7 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
             items.add(menu.get(i));
             items_q.add(value);
           }
+          i++;
         }
         
         if(items.size() == 0){

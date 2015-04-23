@@ -1,6 +1,8 @@
 package app;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import structures.Cuenta;
 import structures.EstadoCuenta;
@@ -25,7 +28,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
   private JPanel boleta;
   
   private int pago, total;
-  private JLabel prev;
+  private JLabel prev, label_pago_monto, label_vuelto_monto;
   private Cuenta cuenta;
   
   public IngresarPagoWindow(MainWindow m, Cuenta c) {
@@ -99,15 +102,14 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     add(button1,gbc);
     
     
-    boleta = new JPanel();
+    initBoleta();
     gbc.fill = GridBagConstraints.BOTH;
     gbc.gridx = 0;
     gbc.gridy = 4;
     gbc.gridwidth = 2;
     add(boleta,gbc);
     
-    prev = new JLabel(" ",JLabel.CENTER);
-    boleta.add(prev);
+
     
     JPanel p = new JPanel(new FlowLayout());
     gbc.fill = GridBagConstraints.NONE;   
@@ -134,9 +136,11 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
         try{
           pago = Integer.parseInt(textfield.getText());
           if(pago < total){
-            prev.setText("Falta dinero para el pago");
+            prev.setText("- Falta dinero para el pago -");
           }else{
-            prev.setText("Vuelto: " + (pago - total));
+            prev.setText("");
+            label_pago_monto.setText("$" + pago);
+            label_vuelto_monto.setText("$" + (pago - total));
             button1.setEnabled(false);
             button2.setEnabled(true);
             button3.setEnabled(false);
@@ -146,7 +150,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
             main.removeCuenta(cuenta);
           }
         } catch (NumberFormatException e) {
-          prev.setText("Error en el input");
+          prev.setText("- Error en el input -");
         }
       }
     });
@@ -167,6 +171,133 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
     
     
     this.pack();
+  }
+
+  private void initBoleta() {
+    boleta = new JPanel();
+    
+    boleta.setBorder(new EmptyBorder(20,20,20,20));
+    boleta.setLayout(new GridBagLayout());
+    
+    GridBagConstraints gbc = new GridBagConstraints();
+
+    gbc.fill = GridBagConstraints.BOTH;    
+    gbc.insets = new Insets(16,16,16,16);
+    gbc.weightx = 1;
+    
+    JLabel titulo = new JLabel("Boleta", JLabel.CENTER); 
+    Font f = titulo.getFont();
+    titulo.setFont(f.deriveFont(f.getStyle() | Font.BOLD));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weighty = 0;
+    gbc.weightx = 1;
+    gbc.gridwidth = 2;
+    boleta.add(titulo,gbc);
+    
+    gbc.insets = new Insets(4,16,4,16);
+    int i = 1, sum = 0;
+    for(Orden o:cuenta.getOrdenes()){
+      for(MenuItem item:o.getItems()){
+        
+        JLabel label = new JLabel(item.getNombre()); 
+        gbc.fill = GridBagConstraints.BOTH;   
+        gbc.gridx = 0;
+        gbc.gridy = i;
+        gbc.weighty = 0;
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        boleta.add(label,gbc);
+        
+        JLabel label2 = new JLabel("$" + item.getPrecio(),JLabel.RIGHT); 
+        gbc.fill = GridBagConstraints.NONE;   
+        gbc.gridx = 1;
+        gbc.gridy = i;
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+        gbc.gridwidth = 1;
+        boleta.add(label2,gbc);
+        
+        sum += item.getPrecio();
+        i++;
+      }
+    }
+    
+    gbc.insets = new Insets(16,16,2,16);
+    
+    JLabel label_total = new JLabel("Total:"); 
+    gbc.fill = GridBagConstraints.BOTH;   
+    gbc.gridx = 0;
+    gbc.gridy = i;
+    gbc.weighty = 0;
+    gbc.weightx = 1;
+    gbc.gridwidth = 1;
+    boleta.add(label_total,gbc);
+    
+    JLabel label_sum = new JLabel("$" + sum,JLabel.RIGHT); 
+    gbc.fill = GridBagConstraints.NONE;   
+    gbc.gridx = 1;
+    gbc.gridy = i;
+    gbc.weighty = 0;
+    gbc.weightx = 0;
+    gbc.gridwidth = 1;
+    boleta.add(label_sum,gbc);
+    
+    gbc.insets = new Insets(2,16,2,16);
+    i++;
+    
+    JLabel label_pago = new JLabel("Pago:"); 
+    gbc.fill = GridBagConstraints.BOTH;   
+    gbc.gridx = 0;
+    gbc.gridy = i;
+    gbc.weighty = 0;
+    gbc.weightx = 1;
+    gbc.gridwidth = 1;
+    boleta.add(label_pago,gbc);
+    
+    label_pago_monto = new JLabel("",JLabel.RIGHT); 
+    gbc.fill = GridBagConstraints.NONE;   
+    gbc.gridx = 1;
+    gbc.gridy = i;
+    gbc.weighty = 0;
+    gbc.weightx = 0;
+    gbc.gridwidth = 1;
+    boleta.add(label_pago_monto,gbc);
+    
+    gbc.insets = new Insets(2,16,2,16);
+    i++;
+    
+    JLabel label_vuelto = new JLabel("Vuelto:"); 
+    gbc.fill = GridBagConstraints.BOTH;   
+    gbc.gridx = 0;
+    gbc.gridy = i;
+    gbc.weighty = 0;
+    gbc.weightx = 1;
+    gbc.gridwidth = 1;
+    boleta.add(label_vuelto,gbc);
+    
+    label_vuelto_monto = new JLabel("",JLabel.RIGHT); 
+    gbc.fill = GridBagConstraints.NONE;   
+    gbc.gridx = 1;
+    gbc.gridy = i;
+    gbc.weighty = 0;
+    gbc.weightx = 0;
+    gbc.gridwidth = 1;
+    boleta.add(label_vuelto_monto,gbc);
+    
+    gbc.insets = new Insets(4,16,4,16);
+    i++;
+    
+    prev = new JLabel(" ",JLabel.CENTER);
+    gbc.fill = GridBagConstraints.BOTH;   
+    gbc.gridx = 0;
+    gbc.gridy = i;
+    gbc.weighty = 0;
+    gbc.weightx = 1;
+    gbc.gridwidth = 2;
+    boleta.add(prev,gbc);
+    
+    boleta.setBackground(Color.WHITE);
   }
 
   public void generarBoleta(){

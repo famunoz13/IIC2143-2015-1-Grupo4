@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<menu>
-  <menuitem id="1" tipo="plato" precio="2000" nombre="Arroz con carne" descripcion="Básicamente arroz con carne"/>
-  <menuitem id="2" tipo="plato" precio="2000" nombre="Fideos con salsa" descripcion="Básicamente fideos y salsa"/>
-  <menuitem id="3" tipo="plato" precio="2500" nombre="Pollo con papas fritas" descripcion="Pollo + papafritas"/>
-  <menuitem id="4" tipo="jugo" precio="800" nombre="Jugo de naranja" descripcion="Básicamente arroz con carne"/>
-</menu> 
-

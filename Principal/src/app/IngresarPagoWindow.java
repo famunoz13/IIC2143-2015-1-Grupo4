@@ -23,7 +23,7 @@ import structures.Orden;
 
 public class IngresarPagoWindow extends JFrame implements ActionListener{
   private static final long serialVersionUID = 1L;
-  private MainWindow main;
+  private Restaurant main;
   private JButton button1, button2, button3;
   private JPanel boleta;
   
@@ -31,7 +31,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
   private JLabel prev, label_pago_monto, label_vuelto_monto;
   private Cuenta cuenta;
   
-  public IngresarPagoWindow(MainWindow m, Cuenta c) {
+  public IngresarPagoWindow(Restaurant m, Cuenta c) {
     super("Ingresar pago");
     
     main = m;

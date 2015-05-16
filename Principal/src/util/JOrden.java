@@ -17,13 +17,13 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import app.MainWindow;
+import app.Restaurant;
 import Listeners.ListenerBtnCancelarOrden;
 import Listeners.ListenerBtnVerOrden;
 import structures.*;
 
 public class JOrden extends JPanel implements ActionListener{
-  private MainWindow main;
+  private Restaurant main;
   
   private Orden orden;
   
@@ -37,7 +37,7 @@ public class JOrden extends JPanel implements ActionListener{
   
   private static final long serialVersionUID = 1L;
 
-  public JOrden(MainWindow m, Orden o) {
+  public JOrden(Restaurant m, Orden o) {
     main = m;
     orden = o;
     

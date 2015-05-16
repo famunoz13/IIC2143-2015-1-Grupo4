@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 
 import structures.Cuenta;
 import app.IngresarPagoWindow;
-import app.MainWindow;
+import app.Restaurant;
 
 
 public class ListenerBtnIngresarPago implements ActionListener {
-  private MainWindow main;
+  private Restaurant main;
   private Cuenta cuenta;
   
-  public ListenerBtnIngresarPago(MainWindow main, Cuenta c){
+  public ListenerBtnIngresarPago(Restaurant main, Cuenta c){
     this.main = main;
     this.cuenta = c;
   }

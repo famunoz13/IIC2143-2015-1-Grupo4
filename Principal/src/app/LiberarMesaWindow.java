@@ -23,17 +23,17 @@ import structures.EstadoCuenta;
 
 public class LiberarMesaWindow extends JFrame implements ActionListener{
   private static final long serialVersionUID = 1L;
-  private MainWindow main;
+  private Restaurant logica;
   private JButton button, button2;
   private JComboBox<Mesa> cb_options;
 
-  public LiberarMesaWindow(MainWindow m) {
+  public LiberarMesaWindow(Restaurant r) {
     super("Liberar mesa");
     
-    main = m;
+    logica = r;
     
     boolean b_mesas_ocupadas = false;
-    for(Mesa mesa:main.getMesas()){
+    for(Mesa mesa:logica.getMesas()){
       //Revisar si hay mesas ocupadas
       if(mesa.getEstado() == EstadoMesa.OCUPADA || mesa.getEstado() == EstadoMesa.OTRO){
         b_mesas_ocupadas = true;
@@ -44,7 +44,7 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
       setVisible(false);
       dispose();
       
-      JOptionPane.showMessageDialog(main,
+      JOptionPane.showMessageDialog(logica.getMainWindow(),
         "No hay mesas ocupadas para liberar",
         "Error al liberar mesa",
         JOptionPane.WARNING_MESSAGE);
@@ -71,7 +71,7 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
     add(label,gbc);
     
     cb_options = new JComboBox<>();
-    for(Mesa mesa:main.getMesas()){
+    for(Mesa mesa:logica.getMesas()){
       //Revisar si la mesa esta ocupada
       if(mesa.getEstado() == EstadoMesa.OCUPADA || mesa.getEstado() == EstadoMesa.OTRO){
         cb_options.addItem(mesa);
@@ -107,14 +107,14 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
         boolean ordenes_pendientes = false;
         boolean cuentas_pendientes = false;
         
-        for(Orden orden:main.getOrdenes()){
+        for(Orden orden:logica.getOrdenes()){
           //Revisar si la mesa tiene ordenes pendientes
           if(orden.getMesa().equals(selected_mesa) && orden.getEstado() != EstadoOrden.ENTREGADA){
             ordenes_pendientes = true;
           }
         }
         
-        for(Cuenta cuenta:main.getCuentas()){
+        for(Cuenta cuenta:logica.getCuentas()){
           //Revisar si la mesa tiene cuentas pendientes
           if(cuenta.getMesa().equals(selected_mesa) && cuenta.getEstado() == EstadoCuenta.PENDIENTE){
             cuentas_pendientes = true;
@@ -127,10 +127,10 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
           
           selected_mesa.setEstado(EstadoMesa.LIBRE);
           selected_mesa.setGente(0);
-          main.updateMesas();
+          logica.getMainWindow().updateMesas();
         } else {
-          JOptionPane.showMessageDialog(main,
-            "La mesa tiene órdenes o cuentas pendientes",
+          JOptionPane.showMessageDialog(logica.getMainWindow(),
+            "La mesa tiene ï¿½rdenes o cuentas pendientes",
             "Error al liberar mesa",
             JOptionPane.WARNING_MESSAGE);
           setVisible(false);

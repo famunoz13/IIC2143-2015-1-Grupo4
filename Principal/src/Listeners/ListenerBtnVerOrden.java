@@ -6,18 +6,18 @@ import java.util.ArrayList;
 
 import structures.Mesa;
 import structures.Orden;
-import app.MainWindow;
+import app.Restaurant;
 import app.VerOrdenWindow;
 
 public class ListenerBtnVerOrden implements ActionListener {
   @SuppressWarnings("unused")
-  private MainWindow main;
+  private Restaurant main;
   @SuppressWarnings("unused")
   private ArrayList<Mesa> mesas;
   
   private Orden orden;
   
-  public ListenerBtnVerOrden(MainWindow main, Orden o){
+  public ListenerBtnVerOrden(Restaurant main, Orden o){
     this.main = main;
     this.mesas = main.getMesas();
     orden = o;

@@ -1,24 +1,5 @@
 package app;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import Listeners.ListenerBtnAsignarMesa;
-import Listeners.ListenerBtnGenerarCuenta;
-import Listeners.ListenerBtnGenerarOrden;
-import Listeners.ListenerBtnLiberarMesas;
-import structures.*;
-import util.JCuenta;
-import util.JMesas;
-import util.JOrden;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
@@ -26,38 +7,42 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.io.File;
-import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.border.EmptyBorder;
+
+import structures.Cuenta;
+import structures.Orden;
+import util.JCuenta;
+import util.JMesas;
+import util.JOrden;
 
 public class MainWindow extends JFrame {
   private static final long serialVersionUID = 1L;
+
+  private Restaurant logica;
+  
   private JPanel panel, panel_mesas, panel_ordenes, panel_cuentas, panel_info;
 
   private JPanel j_ordenes,j_cuentas;
   private JScrollPane scroll_cuentas, scroll_ordenes;
   
-  private ArrayList<Mesa> mesas;
-  private Menu menu;
-
-  private ArrayList<Orden> ordenes;
-  private ArrayList<Cuenta> cuentas;
-
-  private JButton btn_asignar, btn_liberar, btn_gnorden, btn_gncuenta;
-
-  private int id_orden = 1, id_cuenta = 1;
+  public JButton btn_asignar, btn_liberar, btn_gnorden, btn_gncuenta;
   
-  public MainWindow() {
+  public MainWindow(Restaurant r) {
     super("Restaurant");
     setSize(960, 600);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    // Load data
-    mesas = new ArrayList<>();
-    loadMesasXML("mesas.xml");
-
-    menu = new Menu();
-    loadMenuXML("menu.xml");
-
+    
+    //References
+    logica = r;
+    
     // UI
     panel = new JPanel(new GridLayout(1, 1));
     add(panel);
@@ -74,73 +59,8 @@ public class MainWindow extends JFrame {
     tabbedPane.addTab("Opciones", null, tab_opcion, "Opciones");
 
     panel.add(tabbedPane, BorderLayout.CENTER);
-
-    //Add Listeners
-    btn_asignar.addActionListener(new ListenerBtnAsignarMesa(this));
-    btn_liberar.addActionListener(new ListenerBtnLiberarMesas(this));
-    btn_gnorden.addActionListener(new ListenerBtnGenerarOrden(this));
-    btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
     
     setLocationRelativeTo(null);
-  }
-
-  private void loadMesasXML(String path) {
-    try {
-      File fXmlFile = new File(path);
-      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-      Document doc = dBuilder.parse(fXmlFile);
-      doc.getDocumentElement().normalize();
-
-      NodeList nList = doc.getElementsByTagName("mesa");
-
-      for (int temp = 0; temp < nList.getLength(); temp++) {
-        Node nNode = nList.item(temp);
-
-        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-          Element eElement = (Element) nNode;
-
-          int id = Integer.parseInt(eElement.getAttribute("id"));
-          int posx = Integer.parseInt(eElement.getAttribute("posx"));
-          int posy = Integer.parseInt(eElement.getAttribute("posy"));
-          int capacidad = Integer.parseInt(eElement.getAttribute("capacidad"));
-
-          mesas.add(new Mesa(id, posx, posy, capacidad));
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  private void loadMenuXML(String path) {
-    try {
-      File fXmlFile = new File(path);
-      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-      Document doc = dBuilder.parse(fXmlFile);
-      doc.getDocumentElement().normalize();
-
-      NodeList nList = doc.getElementsByTagName("menuitem");
-
-      for (int temp = 0; temp < nList.getLength(); temp++) {
-        Node nNode = nList.item(temp);
-
-        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-          Element eElement = (Element) nNode;
-
-          int id = Integer.parseInt(eElement.getAttribute("id"));
-          String tipo = eElement.getAttribute("tipo");
-          int precio = Integer.parseInt(eElement.getAttribute("precio"));
-          String nombre = eElement.getAttribute("nombre");
-          String descripcion = eElement.getAttribute("descripcion");
-
-          menu.add(new MenuItem(id, tipo, precio, nombre, descripcion));
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   private JComponent makeGeneralPanel(String text) {
@@ -200,7 +120,7 @@ public class MainWindow extends JFrame {
     titulo.setFont(new Font("Sans", Font.PLAIN, 18));
     titulo.setBorder(new EmptyBorder(4,4,4,4));
     
-    JMesas jmesas = new JMesas(mesas);
+    JMesas jmesas = new JMesas(logica.getMesas());
     panel_mesas.add(jmesas, BorderLayout.CENTER);
   }
 
@@ -208,7 +128,7 @@ public class MainWindow extends JFrame {
     panel_ordenes = new JPanel(new BorderLayout());
 
     // TÃ­tulo
-    JLabel titulo = new JLabel("Órdenes", JLabel.CENTER);
+    JLabel titulo = new JLabel("ï¿½rdenes", JLabel.CENTER);
     panel_ordenes.add(titulo, BorderLayout.PAGE_START);
     titulo.setFont(new Font("Sans", Font.PLAIN, 18));
     titulo.setBorder(new EmptyBorder(4,4,4,4));
@@ -216,9 +136,6 @@ public class MainWindow extends JFrame {
     // Lista
     j_ordenes = new JPanel();
     j_ordenes.setLayout(new GridLayout(4, 1));
-    ordenes = new ArrayList<>();
-
-    
 
     scroll_ordenes =  new JScrollPane(j_ordenes,
       JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -237,8 +154,7 @@ public class MainWindow extends JFrame {
     // Lista
     j_cuentas = new JPanel();
     j_cuentas.setLayout(new GridLayout(4, 1));
-    cuentas = new ArrayList<>();
-
+    
     scroll_cuentas = new JScrollPane(j_cuentas,
       JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -280,32 +196,32 @@ public class MainWindow extends JFrame {
   }
 
   public void AddOrden(Orden orden) {
-    ordenes.add(orden);
-    if(orden.getId()==0)
-      orden.setId(id_orden++);
+    int ordenes_size = logica.getOrdenes().size();
     
-    if(ordenes.size() <= 4)
+    if(ordenes_size <= 4)
       j_ordenes.setLayout(new GridLayout(4, 1));
     else
-      j_ordenes.setLayout(new GridLayout(ordenes.size(), 1));
+      j_ordenes.setLayout(new GridLayout(ordenes_size, 1));
     
-    JOrden jorden = new JOrden(this, orden);
+    JOrden jorden = new JOrden(logica, orden);
     j_ordenes.add(jorden);
     j_ordenes.updateUI();
   }
   
   public void removeOrden(Orden orden){
+    int ordenes_size = logica.getOrdenes().size();
+    
     for(Component c:j_ordenes.getComponents()){
       if(c.getClass() == JOrden.class){
         JOrden jo = (JOrden)c;
         if(jo.getOrden() == orden){
           j_ordenes.remove(jo);
-          ordenes.remove(orden);
+          logica.getOrdenes().remove(orden);
           
-          if(ordenes.size() <= 4)
+          if(ordenes_size <= 4)
             j_ordenes.setLayout(new GridLayout(4, 1));
           else
-            j_ordenes.setLayout(new GridLayout(ordenes.size(), 1));
+            j_ordenes.setLayout(new GridLayout(ordenes_size, 1));
           
           break;
         }
@@ -316,31 +232,32 @@ public class MainWindow extends JFrame {
   }
   
   public void AddCuenta(Cuenta cuenta) {
-    cuentas.add(cuenta);
-    cuenta.setId(id_cuenta++);
+    int cuentas_size = logica.getCuentas().size();
     
-    if(cuentas.size() <= 4)
+    if(cuentas_size <= 4)
       j_cuentas.setLayout(new GridLayout(4, 1));
     else
-      j_cuentas.setLayout(new GridLayout(cuentas.size(), 1));
+      j_cuentas.setLayout(new GridLayout(cuentas_size, 1));
     
-    JCuenta jcuenta = new JCuenta(this, cuenta);
+    JCuenta jcuenta = new JCuenta(logica, cuenta);
     j_cuentas.add(jcuenta);
     j_cuentas.updateUI();
   }
 
   public void removeCuenta(Cuenta cuenta){
+    int cuentas_size = logica.getCuentas().size();
+    
     for(Component c:j_cuentas.getComponents()){
       if(c.getClass() == JCuenta.class){
         JCuenta jo = (JCuenta)c;
         if(jo.getCuenta() == cuenta){
           j_cuentas.remove(jo);
-          cuentas.remove(cuenta);
+          logica.getCuentas().remove(cuenta);
           
-          if(cuentas.size() <= 4)
+          if(cuentas_size <= 4)
             j_cuentas.setLayout(new GridLayout(4, 1));
           else
-            j_cuentas.setLayout(new GridLayout(cuentas.size(), 1));
+            j_cuentas.setLayout(new GridLayout(cuentas_size, 1));
           
           break;
         }
@@ -353,29 +270,5 @@ public class MainWindow extends JFrame {
   public void updateMesas() {
     panel_mesas.updateUI();
   }
-  
-  public ArrayList<Mesa> getMesas() {
-    return mesas;
-  }
 
-  public ArrayList<Orden> getOrdenes() {
-    return ordenes;
-  }
-  
-  public ArrayList<Cuenta> getCuentas() {
-    return cuentas;
-  }
-  
-  public Menu getMenu() {
-    return menu;
-  }
-  
-  public boolean hayMesaLibre() {
-    for(Mesa mesa:this.getMesas()){
-      if(mesa.getEstado() == EstadoMesa.LIBRE){
-        return true;
-      }
-    }
-    return false;
-  }
 }

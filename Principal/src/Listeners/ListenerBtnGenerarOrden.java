@@ -4,13 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.GenerarOrdenWindow;
-import app.MainWindow;
+import app.Restaurant;
 
 
 public class ListenerBtnGenerarOrden implements ActionListener {
-  private MainWindow main;
+  private Restaurant main;
   
-  public ListenerBtnGenerarOrden(MainWindow main){
+  public ListenerBtnGenerarOrden(Restaurant main){
     this.main = main;
   }
   int c = 1;

@@ -22,21 +22,21 @@ import structures.Orden;
 
 public class GenerarCuentaWindow extends JFrame implements ActionListener{
   private static final long serialVersionUID = 1L;
-  private MainWindow main;
+  private Restaurant logica;
   private JButton button, button2;
   private JComboBox<Mesa> cb_options;
   
-  public GenerarCuentaWindow(MainWindow m) {
+  public GenerarCuentaWindow(Restaurant r) {
     super("Generar cuenta");
     
-    main = m;
+    logica = r;
     
-    if(main.getOrdenes().size() == 0){
+    if(logica.getOrdenes().size() == 0){
       setVisible(false);
       dispose();
       
-      JOptionPane.showMessageDialog(main,
-          "No hay órdenes disponibles para generar cuentas",
+      JOptionPane.showMessageDialog(logica.getMainWindow(),
+          "No hay ï¿½rdenes disponibles para generar cuentas",
           "Error al generar cuenta",
           JOptionPane.WARNING_MESSAGE);
       return;
@@ -63,11 +63,11 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     
     cb_options = new JComboBox<>();
     
-    for(Mesa mesa:main.getMesas()){
+    for(Mesa mesa:logica.getMesas()){
       //Revisar si la mesa tienes ordenes entregadas
       boolean b_orden = false;
       
-      for(Orden o:main.getOrdenes()){
+      for(Orden o:logica.getOrdenes()){
         if(o.getMesa() == mesa && o.getEstado() == EstadoOrden.ENTREGADA){
           b_orden = true;
           break;
@@ -82,8 +82,8 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
       setVisible(false);
       dispose();
       
-      JOptionPane.showMessageDialog(main,
-          "No hay órdenes disponibles para generar cuentas",
+      JOptionPane.showMessageDialog(logica.getMainWindow(),
+          "No hay ï¿½rdenes disponibles para generar cuentas",
           "Error al generar cuenta",
           JOptionPane.WARNING_MESSAGE);
       return;
@@ -98,7 +98,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     
     gbc.insets = new Insets(2,16,2,16);
     
-    JLabel label4 = new JLabel("Las órdenes no entregadas no se considerarán",JLabel.CENTER);
+    JLabel label4 = new JLabel("Las ï¿½rdenes no entregadas no se considerarï¿½n",JLabel.CENTER);
     gbc.gridx = 0;
     gbc.gridy = 2;
     add(label4,gbc);
@@ -127,7 +127,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
         dispose();
         
         //Juntar todas las Ã³rdenes de la mesa y ponerlas en una cuenta
-        ArrayList<Orden> ordenes = main.getOrdenes();
+        ArrayList<Orden> ordenes = logica.getOrdenes();
         ArrayList<Orden> ordenes_cuenta = new ArrayList<>();
         
         boolean del;
@@ -138,7 +138,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
             if(o.getMesa() == selected_mesa && o.getEstado() == EstadoOrden.ENTREGADA){
               ordenes_cuenta.add(o);
               //Eliminar todas Ã³rdenes de la lista
-              main.removeOrden(o);
+              logica.removeOrden(o);
               del = true;
               break;
             }
@@ -146,7 +146,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
         }while(del);
         
         //AÃ±adir cuenta
-        main.AddCuenta(new Cuenta(1,selected_mesa,ordenes_cuenta));
+        logica.AddCuenta(new Cuenta(1,selected_mesa,ordenes_cuenta));
     }
     });
     

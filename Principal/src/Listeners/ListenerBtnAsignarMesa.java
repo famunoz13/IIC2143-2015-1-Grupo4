@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 import structures.Mesa;
 import app.AsignarMesaWindow;
-import app.MainWindow;
+import app.Restaurant;
 
 public class ListenerBtnAsignarMesa implements ActionListener {
-  private MainWindow main;
+  private Restaurant main;
   @SuppressWarnings("unused")
   private ArrayList<Mesa> mesas;
   
-  public ListenerBtnAsignarMesa(MainWindow main){
+  public ListenerBtnAsignarMesa(Restaurant main){
     this.main = main;
     this.mesas = main.getMesas();
   }

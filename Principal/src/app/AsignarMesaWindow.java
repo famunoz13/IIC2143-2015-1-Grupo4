@@ -19,21 +19,21 @@ import structures.EstadoMesa;
 
 public class AsignarMesaWindow extends JFrame implements ActionListener{
   private static final long serialVersionUID = 1L;
-  private MainWindow main;
+  private Restaurant logica;
   private JButton button, button2;
   private JComboBox<Mesa> cb_options;
   private JComboBox<Integer> cb_cantidad;
   
-  public AsignarMesaWindow(MainWindow m) {
+  public AsignarMesaWindow(Restaurant r) {
     super("Asignar mesa");
     
-    main = m;
+    logica = r;
     
-    if(!m.hayMesaLibre()){
+    if(!logica.hayMesaLibre()){
       setVisible(false);
       dispose();
       
-      JOptionPane.showMessageDialog(main,
+      JOptionPane.showMessageDialog(logica.getMainWindow(),
         "No hay mesas libres para asignar",
         "Error al asignar mesa",
         JOptionPane.WARNING_MESSAGE);
@@ -59,7 +59,7 @@ public class AsignarMesaWindow extends JFrame implements ActionListener{
     add(label,gbc);
     
     cb_options = new JComboBox<>();
-    for(Mesa mesa:main.getMesas()){
+    for(Mesa mesa:logica.getMesas()){
       //Revisar si la mesa esta libre
       if(mesa.getEstado() == EstadoMesa.LIBRE){
         cb_options.addItem(mesa);
@@ -116,7 +116,7 @@ public class AsignarMesaWindow extends JFrame implements ActionListener{
         Mesa selected_mesa = (Mesa) cb_options.getSelectedItem();
         selected_mesa.setEstado(EstadoMesa.OCUPADA);
         selected_mesa.setGente((int)cb_cantidad.getSelectedItem());
-        main.updateMesas();
+        logica.getMainWindow().updateMesas();
       }
     });
     

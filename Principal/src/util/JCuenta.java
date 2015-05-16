@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import app.MainWindow;
+import app.Restaurant;
 import Listeners.ListenerBtnCancelarCuenta;
 import Listeners.ListenerBtnIngresarPago;
 import structures.*;
@@ -21,14 +21,14 @@ import structures.*;
 public class JCuenta extends JPanel {
   private Cuenta cuenta;
   
-  private MainWindow main;
+  private Restaurant main;
   
   private JLabel label,label2;
   private JButton btn_ingresar,btn_cancelar;
   
   private static final long serialVersionUID = 1L;
   
-  public JCuenta(MainWindow m, Cuenta c) {
+  public JCuenta(Restaurant m, Cuenta c) {
     main = m;
     cuenta = c;
     

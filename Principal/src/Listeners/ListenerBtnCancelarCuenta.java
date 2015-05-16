@@ -7,20 +7,20 @@ import javax.swing.JOptionPane;
 
 import structures.Cuenta;
 import structures.Orden;
-import app.MainWindow;
+import app.Restaurant;
 
 public class ListenerBtnCancelarCuenta implements ActionListener {
-  private MainWindow main;
+  private Restaurant main;
   private Cuenta cuenta;
   
-  public ListenerBtnCancelarCuenta(MainWindow main, Cuenta c){
+  public ListenerBtnCancelarCuenta(Restaurant main, Cuenta c){
     this.main = main;
     this.cuenta = c;
   }
   
   @Override
   public void actionPerformed(ActionEvent arg0) {
-    int reply = JOptionPane.showConfirmDialog(null, "La cuenta será eliminada", 
+    int reply = JOptionPane.showConfirmDialog(null, "La cuenta serï¿½ eliminada", 
         "Cancelar cuenta",  JOptionPane.YES_NO_OPTION);
     if (reply == JOptionPane.YES_OPTION)
     {

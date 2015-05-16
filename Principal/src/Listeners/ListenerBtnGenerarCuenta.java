@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 import structures.Mesa;
 import app.GenerarCuentaWindow;
-import app.MainWindow;
+import app.Restaurant;
 
 
 public class ListenerBtnGenerarCuenta implements ActionListener {
-  private MainWindow main;
+  private Restaurant main;
   @SuppressWarnings("unused")
   private ArrayList<Mesa> mesas;
   
-  public ListenerBtnGenerarCuenta(MainWindow main){
+  public ListenerBtnGenerarCuenta(Restaurant main){
     this.main = main;
     this.mesas = main.getMesas();
   }

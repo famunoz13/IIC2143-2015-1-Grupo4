@@ -29,7 +29,7 @@ import structures.Orden;
 
 public class GenerarOrdenWindow extends JFrame implements ActionListener{
   private static final long serialVersionUID = 1L;
-  private MainWindow main;
+  private Restaurant logica;
   private Menu menu;
   private JButton button1, button2;
   
@@ -38,11 +38,11 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
   private JComboBox<Mesa> cb_options;
   private ArrayList<JSpinner> cantidades;
   
-  public GenerarOrdenWindow(MainWindow m) {
+  public GenerarOrdenWindow(Restaurant r) {
     super("Ingresar pago");
     
-    main = m;
-    menu = m.getMenu();
+    logica = r;
+    menu = r.getMenu();
     
     cantidades = new ArrayList<>();
     
@@ -66,7 +66,7 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
     
     cb_options = new JComboBox<>();
     
-    for(Mesa mesa:main.getMesas()){
+    for(Mesa mesa:logica.getMesas()){
       if(mesa.getEstado() == EstadoMesa.OCUPADA){
         cb_options.addItem(mesa);
       }
@@ -76,8 +76,8 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
       setVisible(false);
       dispose();
       
-      JOptionPane.showMessageDialog(main,
-          "No se pueden crear órdenes. Se debe ocupar una mesa primero.",
+      JOptionPane.showMessageDialog(logica.getMainWindow(),
+          "No se pueden crear ï¿½rdenes. Se debe ocupar una mesa primero.",
           "Error al generar orden",
           JOptionPane.WARNING_MESSAGE);
       return;
@@ -177,12 +177,12 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
         }
         
         if(items.size() == 0){
-          JOptionPane.showMessageDialog(main,
-              "No se ingresaron ítems del menú",
+          JOptionPane.showMessageDialog(logica.getMainWindow(),
+              "No se ingresaron ï¿½tems del menï¿½",
               "Error al crear orden",
               JOptionPane.WARNING_MESSAGE);
         }else{
-          main.AddOrden(new Orden(0, selected_mesa, items, items_q, textfield.getText()));
+          logica.AddOrden(new Orden(0, selected_mesa, items, items_q, textfield.getText()));
         }
         return;
     }

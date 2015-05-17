@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 
 import structures.Cuenta;
 import structures.Orden;
@@ -35,6 +36,8 @@ public class MainWindow extends JFrame {
   
   public JButton btn_asignar, btn_liberar, btn_gnorden, btn_gncuenta;
   
+  private JComponent tab_general;
+  private JTabbedPane tabbedPane ;
   public MainWindow(Restaurant r) {
     super("Restaurant");
     setSize(960, 600);
@@ -47,12 +50,12 @@ public class MainWindow extends JFrame {
     panel = new JPanel(new GridLayout(1, 1));
     add(panel);
 
-    JTabbedPane tabbedPane = new JTabbedPane();
+    tabbedPane = new JTabbedPane();
 
-    JComponent tab_general = makeGeneralPanel(" #1");
+    tab_general = makeGeneralPanel(" #1");
     tabbedPane.addTab("General", null, tab_general, "Flujo general");
 
-    JComponent tab_administracion = makeTextPanel("Administrar");
+    JComponent tab_administracion = logica.getAdministracion().getPanel();
     tabbedPane.addTab("Administrar", null, tab_administracion, "Administrar");
 
     JComponent tab_opcion = makeTextPanel("Opciones");
@@ -61,6 +64,20 @@ public class MainWindow extends JFrame {
     panel.add(tabbedPane, BorderLayout.CENTER);
     
     setLocationRelativeTo(null);
+    
+    setLocationRelativeTo(null);
+  }
+  
+  public void reloadGeneral(Restaurant r) {
+    tabbedPane.remove(tab_general);
+    tab_general.removeAll();
+    tab_general.revalidate();
+    tab_general.repaint();
+    tab_general = makeGeneralPanel(" #1");
+    tabbedPane.insertTab("General", null, tab_general, "", 0);
+    tabbedPane.setSelectedComponent(tab_general);
+    
+
   }
 
   private JComponent makeGeneralPanel(String text) {

@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import administration.LogicaAdministracion;
 import Listeners.ListenerBtnAsignarMesa;
 import Listeners.ListenerBtnGenerarCuenta;
 import Listeners.ListenerBtnGenerarOrden;
@@ -26,6 +27,8 @@ public class Restaurant{
 
   private MainWindow main_window;
 
+  private LogicaAdministracion administracion;
+  
   private int id_orden = 1, id_cuenta = 1;
   
   public Restaurant() {
@@ -39,8 +42,11 @@ public class Restaurant{
     ordenes = new ArrayList<>();
     cuentas = new ArrayList<>();
     
+    //Create admin logic
+    administracion = new LogicaAdministracion(this);
+    
     //Create main window
-    MainWindow main_window = new MainWindow(this);
+    main_window = new MainWindow(this);
     main_window.setVisible(true);
     
     //Add Listeners
@@ -162,5 +168,35 @@ public class Restaurant{
 
   public MainWindow getMainWindow(){
     return main_window;
+  }
+
+  public LogicaAdministracion getAdministracion(){
+    return administracion;
+  }
+
+  public void reload() {
+    // Load data
+    mesas = new ArrayList<>();
+    loadMesasXML("mesas.xml");
+
+    menu = new Menu();
+    loadMenuXML("menu.xml");
+
+    ordenes = new ArrayList<>();
+    cuentas = new ArrayList<>();
+    
+    //Create admin logic
+    administracion = new LogicaAdministracion(this);
+    
+    //Create main window
+    main_window.reloadGeneral(this);
+    main_window.setVisible(true);
+    
+    //Add Listeners
+    main_window.btn_asignar.addActionListener(new ListenerBtnAsignarMesa(this));
+    main_window.btn_liberar.addActionListener(new ListenerBtnLiberarMesas(this));
+    main_window.btn_gnorden.addActionListener(new ListenerBtnGenerarOrden(this));
+    main_window.btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
+    
   }
 }

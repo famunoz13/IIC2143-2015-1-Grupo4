@@ -7,32 +7,45 @@ La entrega se separa ahora en dos programas (dos proyectos diferentes de eclipse
 #### Configuración proyectos
 
 Es importante notar que es necesario hacer referencia desde el proyecto Cocina al proyecto Principal para que funcionen (usa las mismas clases del modelo). Para hacer esto basta con:
+
 -Desde Cocina
+
 -Ir a las opciones de proyecto/Build Path/Configure Build Path...
+
 -Pestaña proyectos
+
 -Add... y seleccionar Principal
 
 
 #### Atender cliente
 
 El flujo principal para atender a un cliente queda así:
+
 -Abrir los dos programas
+
 -*Asignar Mesa*
+
 -*Generar Orden* (la orden aparece en el segundo programa)
 
 -*Atender* (desde el segundo programa)
+
 -*Marcar como lista* (el primer programa es avisado)
 
 -Ahora la orden en el primer programa aparece como lista y puede ser entregada
+
 -*Marcar como entregada*
+
 -*Generar Cuenta* (o bien se pueden crear nuevas órdenes)
+
 -*Ingresar pago*
 
 
 #### Administrar
 
 Un segundo flujo que se implementó es el de menú de administración. Para acceder a este basta con ir a la pestaña *Administrar*. Los datos de acceso son:
+
 -Usuario administrador: admin
+
 -Contraseña: 12345
 
 Si bien vienen escritas por defecto, si no son esos los datos de accesos entonces la autentificación falla.

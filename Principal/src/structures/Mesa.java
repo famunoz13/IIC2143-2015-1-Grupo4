@@ -1,6 +1,8 @@
 package structures;
 
-public class Mesa {
+import java.io.Serializable;
+
+public class Mesa implements Serializable{
   private int posx,posy;
 	private int id;
 	private EstadoMesa estado;

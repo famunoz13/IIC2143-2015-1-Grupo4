@@ -58,9 +58,9 @@ public class RestaurantTest {
         rest.getMesas().get(0).getCapacidad()==6 &&
         rest.getMesas().get(0).getPosx()==10 &&
         rest.getMesas().get(0).getPosy()==10 &&
-        rest.getMesas().get(0).getId()==2 &&
-        rest.getMesas().get(0).getCapacidad()==4 &&
-        rest.getMesas().get(0).getPosx()==80 &&
-        rest.getMesas().get(0).getPosy()==20);
+        rest.getMesas().get(1).getId()==2 &&
+        rest.getMesas().get(1).getCapacidad()==4 &&
+        rest.getMesas().get(1).getPosx()==80 &&
+        rest.getMesas().get(1).getPosy()==20);
   }
 }

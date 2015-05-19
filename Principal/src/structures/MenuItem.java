@@ -3,6 +3,7 @@ package structures;
 import java.io.Serializable;
 
 public class MenuItem implements Serializable {
+  private static final long serialVersionUID = 1L;
   private int id;
   private String tipo;
   

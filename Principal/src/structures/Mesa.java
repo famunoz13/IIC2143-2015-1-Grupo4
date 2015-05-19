@@ -3,6 +3,7 @@ package structures;
 import java.io.Serializable;
 
 public class Mesa implements Serializable{
+  private static final long serialVersionUID = 1L;
   private int posx,posy;
 	private int id;
 	private EstadoMesa estado;

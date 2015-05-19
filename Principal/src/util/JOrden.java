@@ -7,13 +7,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -31,9 +29,6 @@ public class JOrden extends JPanel implements ActionListener{
   private JButton btn_ver,btn_marcar,btn_cancelar;
   
   private JLabel status;
-  
-  private Timer t;
-  private ActionListener taskPerformer;
   
   private static final long serialVersionUID = 1L;
 

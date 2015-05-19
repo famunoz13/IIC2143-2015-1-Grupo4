@@ -6,6 +6,8 @@ public class Mesa {
 	private EstadoMesa estado;
 	private int capacidad, gente;
 	
+	private int iposx, iposy;
+	
   public Mesa(int id, int posx, int posy, int capacidad) {
     this.id = id;
     this.posx = posx;
@@ -55,4 +57,22 @@ public class Mesa {
   public String toString(){
     return "Mesa #"+id;
   }
+
+  public int getIposx() {
+    return iposx;
+  }
+
+  public void setIposx(int iposx) {
+    this.iposx = iposx;
+  }
+
+  public int getIposy() {
+    return iposy;
+  }
+
+  public void setIposy(int iposy) {
+    this.iposy = iposy;
+  }
+  
+  
 }

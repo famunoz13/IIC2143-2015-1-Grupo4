@@ -1,5 +1,6 @@
 package administration;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -185,6 +186,9 @@ public class LogicaAdministracion {
     
     editor.getBtn_move().addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
+        btn_mesa.get(selected).setIposx(selected.getBounds().x);
+        btn_mesa.get(selected).setIposy(selected.getBounds().y);
+        editor.getEditArea().setComponentZOrder(selected, 0);
         aMove();
       }
     });
@@ -264,10 +268,19 @@ public class LogicaAdministracion {
       for(ActionListener al : selected.getActionListeners())
         selected.removeActionListener(al);
       
+      
       editor.getEditArea().addMouseMotionListener(new MouseAdapter() {
         @Override
         public void mouseMoved(MouseEvent e) {
           selected.setBounds(10*(int)((e.getX() - 30)/10),10*(int)((e.getY() - 30)/10), 60, 60);
+          
+          boolean can = canBeDropped(selected);
+          if(can){
+            selected.setBackground(Color.cyan);
+          }else{
+            selected.setBackground(Color.RED);
+          }
+          
           editor.updateUI();
           Display("Moviendo la mesa " + btn_mesa.get(selected).toString() + " (" + selected.getBounds().x + "," + selected.getBounds().y+")");
         }
@@ -279,6 +292,14 @@ public class LogicaAdministracion {
           int x = selected.getBounds().x + e.getX() - 30;
           int y = selected.getBounds().y + e.getY() - 30;
           selected.setBounds(10*(int)(x/10), 10*(int)(y/10), 60, 60);
+          
+          boolean can = canBeDropped(selected);
+          if(can){
+            selected.setBackground(Color.cyan);
+          }else{
+            selected.setBackground(Color.RED);
+          }
+          
           editor.updateUI();
           Display("Moviendo la mesa " + btn_mesa.get(selected).toString() + " (" + selected.getBounds().x + "," + selected.getBounds().y+")");
         }
@@ -295,11 +316,23 @@ public class LogicaAdministracion {
           selected.removeActionListener(this);
           setBtnMesaListeners(selected);
           
+          boolean can = canBeDropped(selected);
+          selected.setBackground(Color.cyan);
           Mesa mesa = btn_mesa.get(selected);
-          mesa.setPosx(selected.getBounds().x);
-          mesa.setPosy(selected.getBounds().y);
-          Display("La mesa " + btn_mesa.get(selected).toString() + " fue colocada en (" + selected.getBounds().x + "," + selected.getBounds().y+")");
-        }
+          if(can){
+            mesa.setPosx(selected.getBounds().x);
+            mesa.setPosy(selected.getBounds().y);
+            Display("La mesa " + btn_mesa.get(selected).toString() + " fue colocada en (" + selected.getBounds().x + "," + selected.getBounds().y+")");
+          }else{
+            mesa.setPosx(mesa.getIposx());
+            mesa.setPosy(mesa.getIposy());
+            
+            selected.setBounds(mesa.getIposx(), mesa.getIposy(), 60, 60);
+            editor.updateUI();
+            
+            Display("La mesa " + btn_mesa.get(selected).toString() + " no puede ser colocada en ese lugar");
+          }
+         }
       });
     }
   }
@@ -400,6 +433,24 @@ public class LogicaAdministracion {
     return b;
   }
   
+  private int d = 1;
+  private boolean canBeDropped(JButton s){
+    for (JButton btn : btn_mesa.keySet()) {
+      if(btn != s){
+        if(contains(s, btn.getBounds().x + d, btn.getBounds().y + d)){
+          return false;
+        }else if(contains(s, btn.getBounds().x + d, btn.getBounds().y + 60 - d)){
+          return false;
+        }else if(contains(s, btn.getBounds().x + 60 - d, btn.getBounds().y + d)){
+          return false;
+        }else if(contains(s, btn.getBounds().x + 60 - d, btn.getBounds().y + 60 - d)){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  
   private void setBtnMesaListeners(final JButton b){
     b.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
@@ -415,6 +466,22 @@ public class LogicaAdministracion {
         Display("Mesa seleccionada: " + btn_mesa.get(b).toString());
       }
     });
+  }
+
+  private boolean contains(JButton s, int x, int y){
+    if(x < s.getBounds().x)
+      return false;
+    
+    if(x > s.getBounds().x + 60)
+      return false;
+    
+    if(y < s.getBounds().y)
+      return false;
+    
+    if(y > s.getBounds().y + 60)
+      return false;
+    
+    return true;
   }
   
   private void Display(String str){

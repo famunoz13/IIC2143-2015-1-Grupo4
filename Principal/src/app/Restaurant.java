@@ -67,6 +67,7 @@ public class Restaurant{
     
   }
 
+
   public void enviar(Orden o)
   {
 	  sender.Send(0, o);
@@ -88,6 +89,39 @@ public class Restaurant{
 		  }
 	  }
   }
+
+  public Restaurant(String mesasXML, String menuXML) {
+    // Load data
+    mesas = new ArrayList<>();
+    if(!mesasXML.equals(""))
+      loadMesasXML(mesasXML);
+    else
+      loadMesasXML("mesas.xml");
+      
+    menu = new Menu();
+    if(!menuXML.equals(""))
+      loadMenuXML(menuXML);
+    else
+      loadMenuXML("menu.xml");
+    
+    ordenes = new ArrayList<>();
+    cuentas = new ArrayList<>();
+    
+    //Create admin logic
+    administracion = new LogicaAdministracion(this);
+    
+    //Create main window
+    main_window = new MainWindow(this);
+    main_window.setVisible(true);
+    
+    //Add Listeners
+    main_window.btn_asignar.addActionListener(new ListenerBtnAsignarMesa(this));
+    main_window.btn_liberar.addActionListener(new ListenerBtnLiberarMesas(this));
+    main_window.btn_gnorden.addActionListener(new ListenerBtnGenerarOrden(this));
+    main_window.btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
+    
+  }
+  
   private void loadMesasXML(String path) {
     try {
       File fXmlFile = new File(path);

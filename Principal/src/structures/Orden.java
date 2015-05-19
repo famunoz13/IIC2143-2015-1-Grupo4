@@ -1,8 +1,9 @@
 package structures;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Orden {
+public class Orden implements Serializable {
    private int id;
    private Mesa mesa;
    private EstadoOrden estado;

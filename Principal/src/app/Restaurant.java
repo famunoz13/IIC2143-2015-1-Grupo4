@@ -14,9 +14,12 @@ import Listeners.ListenerBtnGenerarCuenta;
 import Listeners.ListenerBtnGenerarOrden;
 import Listeners.ListenerBtnLiberarMesas;
 import structures.*;
+import util.JOrden;
 
+import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
+import sockets.*;
 
 public class Restaurant{
   private ArrayList<Mesa> mesas;
@@ -30,6 +33,9 @@ public class Restaurant{
   private LogicaAdministracion administracion;
   
   private int id_orden = 1, id_cuenta = 1;
+  
+  private Sender sender;
+  private Server server;
   
   public Restaurant() {
     // Load data
@@ -55,8 +61,33 @@ public class Restaurant{
     main_window.btn_gnorden.addActionListener(new ListenerBtnGenerarOrden(this));
     main_window.btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
     
+    sender = new Sender("127.0.0.1", 3034);
+    server = new Server(3040, this);
+    server.start();
+    
   }
 
+  public void enviar(Orden o)
+  {
+	  sender.Send(0, o);
+  }
+  
+  public void indicarOrdenEntregada(Orden o)
+  {
+	  sender.Send(1, o);
+  }
+  
+  public void recibir(Orden o)
+  {
+	  
+	  for(Component c:main_window.getJordenes().getComponents()){
+		  if(c.getClass() == JOrden.class){
+			  JOrden jo = (JOrden)c;
+			  if(jo.getOrden().getId() == o.getId())
+				  jo.MarcarComoLista(); 
+		  }
+	  }
+  }
   private void loadMesasXML(String path) {
     try {
       File fXmlFile = new File(path);

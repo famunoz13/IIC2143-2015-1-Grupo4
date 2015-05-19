@@ -101,8 +101,9 @@ public class JOrden extends JPanel implements ActionListener{
     //Esto evita que las cuentas canceladas sean reprogramadas como nuevas órdenes
     if(orden.getEstado() == EstadoOrden.ESPERA){
       setEstado(EstadoOrden.ESPERA);
+      main.enviar(orden);//IMPLEMENTARIMPLEMENTARIMPLEMENTAR
       //Cambio de estado programado
-      Random randomGenerator = new Random();
+      /*Random randomGenerator = new Random();
       int delay = (randomGenerator.nextInt(4) + 1) * 1000; //A lo más cinco segundos
       taskPerformer = new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
@@ -112,12 +113,19 @@ public class JOrden extends JPanel implements ActionListener{
           }
       };
       t = new Timer(delay, taskPerformer);
-      t.start();
+      t.start();*/
     }else{
       setEstado(orden.getEstado());
       btn_marcar.setEnabled(true);
       btn_marcar.setText("Cancelar entrega");
-    }
+    }  
+    
+  }
+  
+  public void MarcarComoLista()
+  {
+	  setEstado(EstadoOrden.LISTA);
+      btn_marcar.setEnabled(true);
   }
 
   public Orden getOrden(){
@@ -152,9 +160,12 @@ public class JOrden extends JPanel implements ActionListener{
     if(orden.getEstado() == EstadoOrden.LISTA){
       setEstado(EstadoOrden.ENTREGADA);
       btn_marcar.setText("Cancelar entrega");
+      main.indicarOrdenEntregada(orden);
+      
     }else{
       setEstado(EstadoOrden.LISTA);
       btn_marcar.setText("Marcar como entregada");
+      
     }
   }
 }

@@ -287,5 +287,11 @@ public class MainWindow extends JFrame {
   public void updateMesas() {
     panel_mesas.updateUI();
   }
+  
+  public JPanel getJordenes()
+  {
+	  return j_ordenes;
+  }
+  
 
 }

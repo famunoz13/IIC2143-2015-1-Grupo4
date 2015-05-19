@@ -1,5 +1,7 @@
 package structures;
 
-public enum EstadoOrden {
+import java.io.Serializable;
+
+public enum EstadoOrden implements Serializable {
   LISTA,ESPERA,ENTREGADA
 }

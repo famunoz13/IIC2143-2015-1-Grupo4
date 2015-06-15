@@ -23,6 +23,7 @@ public class ListenerBtnCancelarOrden implements ActionListener {
         "Cancelar orden",  JOptionPane.YES_NO_OPTION);
     if (reply == JOptionPane.YES_OPTION)
     {
+      main.cancelarOrden(orden);
       main.removeOrden(orden);
     }
     

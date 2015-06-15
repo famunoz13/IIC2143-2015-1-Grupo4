@@ -51,10 +51,29 @@ public class Server implements Runnable{
 				connected = true;
 				InputStream is = socket.getInputStream();
 				ObjectInputStream ois = new ObjectInputStream(is);
-				Orden orden = (Orden)ois.readObject();
+				Message m = (Message)ois.readObject();
+				Orden orden = m.getOrden();
 				
-				/* Falta procesar el mensaje */
-				r.recibir(orden);
+				
+				// tipo == 0 indica que la orden fue cancelada
+				if(m.tipo == 0)
+				{
+					r.removeOrden(orden);
+				}
+				
+				// tipo == 1 indica que la orden esta preparada
+				if(m.tipo == 1)
+				{
+					r.recibir(orden);
+				}
+				
+				// tipo == 2 indica que la orden no esta preparada
+				if(m.tipo == 2)
+				{
+					r.desprepararOrden(orden);
+				}
+				
+				
 				is.close();
 				ois.close();
 				socket.close();

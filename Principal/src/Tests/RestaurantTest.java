@@ -40,12 +40,12 @@ public class RestaurantTest {
         rest.getMenu().getItems().get(0).getNombre().equals("Arroz con carne") &&
         rest.getMenu().getItems().get(0).getTipo().equals("plato") &&
         rest.getMenu().getItems().get(0).getPrecio()==2000 &&
-        rest.getMenu().getItems().get(0).getDescripcion().equals("B�sicamente arroz con carne") &&
+        rest.getMenu().getItems().get(0).getDescripcion().equals("Basicamente arroz con carne") &&
         rest.getMenu().getItems().get(1).getId()==2 &&
         rest.getMenu().getItems().get(1).getNombre().equals("Jugo de naranja") &&
         rest.getMenu().getItems().get(1).getTipo().equals("jugo") &&
         rest.getMenu().getItems().get(1).getPrecio()==800 &&
-        rest.getMenu().getItems().get(1).getDescripcion().equals("B�sicamente jugo de naranja"));
+        rest.getMenu().getItems().get(1).getDescripcion().equals("Basicamente jugo de naranja"));
   }
   
   @Test

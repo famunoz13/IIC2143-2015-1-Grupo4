@@ -63,6 +63,10 @@ public class LogicaAdministracion {
 
   }
   
+  public HashMap<String, String> getUsers(){
+	  return users;
+  }
+  
   
   private void setFormPanel(){
     admin_panel.removeAll();

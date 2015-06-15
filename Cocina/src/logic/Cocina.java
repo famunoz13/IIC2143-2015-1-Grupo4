@@ -34,7 +34,7 @@ public class Cocina {
 //		recibirOrden(new Orden(2,null, null,null,""));
 //		recibirOrden(new Orden(3,null, null,null,""));
 //		recibirOrden(new Orden(4,null, null,null,""));
-		addOrden(new Orden(100,null, null,null,""));
+		//addOrden(new Orden(100,null, null,null,""));
 	}
 
 	public void decifrarMensaje(Message m){

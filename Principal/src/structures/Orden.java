@@ -2,6 +2,7 @@ package structures;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Orden implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -11,6 +12,8 @@ public class Orden implements Serializable {
    private ArrayList<MenuItem> items;
    private ArrayList<Integer> cantidades;
    private String nota;
+   private Date fecha;
+   
    
    public Orden(int id, Mesa mesa, ArrayList<MenuItem> items, ArrayList<Integer> cantidades, String nota) {
     this.id = id;
@@ -19,6 +22,7 @@ public class Orden implements Serializable {
     this.items = items;
     this.cantidades = cantidades;
     this.nota = nota;
+    this.fecha = new Date();
   }
 
   public int getId() {
@@ -59,4 +63,13 @@ public class Orden implements Serializable {
   public void setNota(String nota) {
     this.nota = nota;
   }
+
+  public Date getFecha() {
+    return fecha;
+  }
+
+  public void setFecha(Date fecha) {
+    this.fecha = fecha;
+  }
+  
 }

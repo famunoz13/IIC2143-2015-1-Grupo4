@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+//import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -129,7 +130,7 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
     //Añadir menu
     p_menu.setBackground(Color.WHITE);
     p_menu.setBorder(new EmptyBorder(4, 4, 4, 4));
-    
+    //Random randomGenerator = new Random();
     int j = 0;
     for(final MenuItem i:menu.getItems()){
       JLabel label_plato = new JLabel(i.getNombre());
@@ -139,7 +140,7 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
       gbc2.weightx = 1;
       p_menu.add(label_plato,gbc2);
       
-      SpinnerModel model = new SpinnerNumberModel(0, 0, 100, 1);
+      SpinnerModel model = new SpinnerNumberModel(0, 0, 100, 1);//randomGenerator.nextInt(15)+1
       cantidades.add(new JSpinner(model));
       gbc2.gridx = 1;
       gbc2.gridy = j;

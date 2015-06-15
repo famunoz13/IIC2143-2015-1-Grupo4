@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
-  <menuitem id="1" tipo="plato" precio="2000" nombre="Arroz con carne" descripcion="Básicamente arroz con carne"/>
-  <menuitem id="2" tipo="plato" precio="2000" nombre="Fideos con salsa" descripcion="Básicamente fideos y salsa"/>
-  <menuitem id="3" tipo="plato" precio="2500" nombre="Pollo con papas fritas" descripcion="Pollo + papafritas"/>
-  <menuitem id="4" tipo="jugo" precio="800" nombre="Jugo de naranja" descripcion="Básicamente arroz con carne"/>
+  <menuitem id="1" tipo="platos" precio="2000" costo="800" nombre="Arroz con verduras" descripcion="Arroz + verduras"/>
+  <menuitem id="2" tipo="platos" precio="2500" costo="1200" nombre="Arroz con carne" descripcion="Arroz + carne/pollo + ensalada"/>
+  <menuitem id="3" tipo="platos" precio="2000" costo="900" nombre="Fideos con verduras" descripcion="Fideos + verduras"/>
+  <menuitem id="4" tipo="platos" precio="2500" costo="1300" nombre="Fideos con salsa" descripcion="Fideos + salsas + ensalada "/>
+  <menuitem id="5" tipo="platos" precio="3000" costo="1500" nombre="Lasaña" descripcion="Lasaña"/>
+  <menuitem id="6" tipo="platos" precio="1800" costo="700" nombre="Vegetariano" descripcion="Verduras varias"/>
+  
+  <menuitem id="7" tipo="postres" precio="500" costo="200" nombre="Jalea" descripcion="Jalea (sabor a elección)"/>
+  <menuitem id="8" tipo="postres" precio="750" costo="300" nombre="Flan" descripcion="Flan de chocolate o caramelo"/>
+  <menuitem id="9" tipo="postres" precio="1000" costo="300" nombre="Helado" descripcion="Helado (sabor a elección)"/>
+  <menuitem id="10" tipo="postres" precio="800" costo="300" nombre="Frutas" descripcion="Frutas varias"/>
+  
+  <menuitem id="11" tipo="bebidas" precio="2500" costo="1000" nombre="Jugo natural" descripcion="Jugo natural (naranja o piña)"/>
+  <menuitem id="12" tipo="bebidas" precio="800" costo="400" nombre="Bebida" descripcion="Bebida (sabor a elección)"/>
+  <menuitem id="13" tipo="bebidas" precio="800" costo="400" nombre="Vino" descripcion="Vino"/>
 </menu> 
 

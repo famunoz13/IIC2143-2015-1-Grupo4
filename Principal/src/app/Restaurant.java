@@ -19,6 +19,7 @@ import util.JOrden;
 import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
+
 import sockets.*;
 
 public class Restaurant{
@@ -37,7 +38,7 @@ public class Restaurant{
   private Sender sender;
   private Server server;
   
-  public Restaurant() {
+  public Restaurant(){
     // Load data
     mesas = new ArrayList<>();
     loadMesasXML("mesas.xml");
@@ -60,7 +61,8 @@ public class Restaurant{
     main_window.btn_liberar.addActionListener(new ListenerBtnLiberarMesas(this));
     main_window.btn_gnorden.addActionListener(new ListenerBtnGenerarOrden(this));
     main_window.btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
-    
+
+    //Com
     sender = new Sender("127.0.0.1", 3034);
     server = new Server(3040, this);
     server.start();
@@ -186,10 +188,11 @@ public class Restaurant{
           int id = Integer.parseInt(eElement.getAttribute("id"));
           String tipo = eElement.getAttribute("tipo");
           int precio = Integer.parseInt(eElement.getAttribute("precio"));
+          int costo = Integer.parseInt(eElement.getAttribute("costo"));
           String nombre = eElement.getAttribute("nombre");
           String descripcion = eElement.getAttribute("descripcion");
 
-          menu.add(new MenuItem(id, tipo, precio, nombre, descripcion));
+          menu.add(new MenuItem(id, tipo, precio, costo, nombre, descripcion));
         }
       }
     } catch (Exception e) {
@@ -279,5 +282,10 @@ public class Restaurant{
     main_window.btn_gnorden.addActionListener(new ListenerBtnGenerarOrden(this));
     main_window.btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
     
+  }
+
+
+  public void setMenu(Menu menu2) {
+    menu = menu2;
   }
 }

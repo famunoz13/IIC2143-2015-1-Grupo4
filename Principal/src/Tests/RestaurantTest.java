@@ -9,7 +9,7 @@ import structures.Mesa;
 import app.Restaurant;
 
 public class RestaurantTest {
-  Restaurant rest;
+  private Restaurant rest;
 
   @Test
   public void testhayMesaLibre1() {

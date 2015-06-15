@@ -7,13 +7,14 @@ public class MenuItem implements Serializable {
   private int id;
   private String tipo;
   
-  private int precio;
+  private int precio, costo;
   private String nombre, descripcion;
   
-  public MenuItem(int id, String tipo, int precio, String nombre, String descripcion) {
+  public MenuItem(int id, String tipo, int precio, int costo, String nombre, String descripcion) {
     this.id = id;
     this.tipo = tipo;
     this.precio = precio;
+    this.costo = costo;
     this.nombre = nombre;
     this.descripcion = descripcion;
   }
@@ -48,4 +49,13 @@ public class MenuItem implements Serializable {
   public void setDescripcion(String descripcion) {
     this.descripcion = descripcion;
   }
+
+  public int getCosto() {
+    return costo;
+  }
+
+  public void setCosto(int costo) {
+    this.costo = costo;
+  }
+  
 }

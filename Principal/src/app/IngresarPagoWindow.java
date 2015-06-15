@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import log.Logger;
 import structures.Cuenta;
 import structures.EstadoCuenta;
 import structures.MenuItem;
@@ -169,6 +170,7 @@ public class IngresarPagoWindow extends JFrame implements ActionListener{
             textfield2.setEnabled(false);
             
             cuenta.setEstado(EstadoCuenta.PAGADA);
+            Logger.getInstance().log(cuenta);
             main.removeCuenta(cuenta);
             
             setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

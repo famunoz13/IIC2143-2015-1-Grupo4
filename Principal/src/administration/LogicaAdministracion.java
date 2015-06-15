@@ -41,6 +41,9 @@ public class LogicaAdministracion {
   private admin_menu menu;
   private editor_mesas editor;
   
+  @SuppressWarnings("unused")
+  private Reportes_backend reportes;
+  
   private ArrayList<Mesa> mesas;
   private HashMap<JButton,Mesa> btn_mesa;
   private JButton selected = null;
@@ -60,107 +63,43 @@ public class LogicaAdministracion {
 
   }
   
-  public void initLoginButton(){
-    JButton b = form.getButton();
-    b.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent arg0) {
-        String user = form.getUser();
-        String pass = form.getPassword();
-        
-        String pass_stored = users.get(user);
-        
-        if(pass_stored == null){
-          JOptionPane.showMessageDialog(form,
-              "Ese usuario no existe",
-              "Error al ingresar",
-              JOptionPane.WARNING_MESSAGE);
-        }else{
-
-          if(!pass_stored.equals(pass)){
-            JOptionPane.showMessageDialog(form,
-                "El usuario y la contraseña no coinciden",
-                "Error al ingresar",
-                JOptionPane.WARNING_MESSAGE);
-          }else{
-            setMenuPanel();
-          }
-        }  
-      }
-     });
-  }
-      
-  private void initMenuButtons(){
-    menu.getBtnEditor().addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent arg0) {
-        setEditorPanel();
-      }
-    });
-    
-    menu.getBtnExit().addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent arg0) {
-        setFormPanel();
-      }
-    });
-    
-    
-  }
   
   private void setFormPanel(){
-    if(admin_panel.isAncestorOf(menu))
-      admin_panel.remove(menu);
-    menu = null;
-   
-    if(admin_panel.isAncestorOf(editor))
-      admin_panel.remove(editor);
-    editor = null;
+    admin_panel.removeAll();
     
-    if(form == null)
-      form = new login_form();
-    
+    form = new login_form();   
     admin_panel.add(form);
-    
     initLoginButton();
-    
     admin_panel.updateUI();
   }
   
-  private void setMenuPanel(){
-    if(admin_panel.isAncestorOf(form))
-      admin_panel.remove(form);
-    form = null;
+  public void setMenuPanel(){
+    admin_panel.removeAll();
     
-    if(admin_panel.isAncestorOf(editor))
-      admin_panel.remove(editor);
-    editor = null;
-    
-    if(menu == null)
-      menu = new admin_menu();
-    
+    menu = new admin_menu();
     admin_panel.add(menu);
-    
     initMenuButtons();
-    
     admin_panel.updateUI();
   }
   
   private void setEditorPanel(){
-    if(admin_panel.isAncestorOf(form))
-      admin_panel.remove(form);
-    form = null;
-    
-    if(admin_panel.isAncestorOf(menu))
-      admin_panel.remove(menu);
-    menu = null;
-    
-    if(editor == null)
-      editor = new editor_mesas();
-    
+    admin_panel.removeAll();
+      
+    editor = new editor_mesas();
     admin_panel.add(editor);
-    
-    initEditor();
-    
+    initEditor();    
     admin_panel.updateUI();
   }
+  
+  private void setReportesPanel(){
+    admin_panel.removeAll();
+    
+    Reporte_frontend f = new Reporte_frontend();
+    reportes = new Reportes_backend(this, f);
+    admin_panel.add(f);
+    admin_panel.updateUI();
+  }
+  
   
   private void initEditor(){
     mesas = new ArrayList<>();
@@ -211,9 +150,60 @@ public class LogicaAdministracion {
       }
     });
   }
+
+  public void initLoginButton(){
+    JButton b = form.getButton();
+    b.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        String user = form.getUser();
+        String pass = form.getPassword();
+        
+        String pass_stored = users.get(user);
+        
+        if(pass_stored == null){
+          JOptionPane.showMessageDialog(form,
+              "Ese usuario no existe",
+              "Error al ingresar",
+              JOptionPane.WARNING_MESSAGE);
+        }else{
+
+          if(!pass_stored.equals(pass)){
+            JOptionPane.showMessageDialog(form,
+                "El usuario y la contraseña no coinciden",
+                "Error al ingresar",
+                JOptionPane.WARNING_MESSAGE);
+          }else{
+            setMenuPanel();
+          }
+        }  
+      }
+     });
+  }
+      
+  private void initMenuButtons(){
+    menu.getBtnEditor().addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        setEditorPanel();
+      }
+    });
+    
+    menu.getBtn_reportes().addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        setReportesPanel();
+      }
+    });
+    
+    menu.getBtnExit().addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        setFormPanel();
+      }
+    });
+    
+    
+  }
+  
   
   //actions
-  
   private void aCreate(){
     int id = 0;
     for(int i=1; i<=mesas.size(); i++){

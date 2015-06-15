@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import log.Logger;
 import structures.Cuenta;
 import structures.EstadoCuenta;
-import structures.MenuItem;
 import structures.Orden;
 
 public class IngresarPagoWindow extends JFrame implements ActionListener{

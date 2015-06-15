@@ -43,12 +43,12 @@ public class LogicaAdministracion {
   
   @SuppressWarnings("unused")
   private Reportes_backend reportes;
-  
+  private Menus_backend menus;
   private ArrayList<Mesa> mesas;
   private HashMap<JButton,Mesa> btn_mesa;
   private JButton selected = null;
   
-  private Restaurant restaurant;
+  public Restaurant restaurant;
   
   public LogicaAdministracion(Restaurant r){
     restaurant = r;
@@ -97,6 +97,15 @@ public class LogicaAdministracion {
     Reporte_frontend f = new Reporte_frontend();
     reportes = new Reportes_backend(this, f);
     admin_panel.add(f);
+    admin_panel.updateUI();
+  }
+  
+  private void setMenusPanel(){
+    admin_panel.removeAll();
+    
+    menus = new Menus_backend(this);
+
+    admin_panel.add(menus.getFrontend());
     admin_panel.updateUI();
   }
   
@@ -190,6 +199,12 @@ public class LogicaAdministracion {
     menu.getBtn_reportes().addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
         setReportesPanel();
+      }
+    });
+    
+    menu.getBtn_editor_menu().addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        setMenusPanel();
       }
     });
     

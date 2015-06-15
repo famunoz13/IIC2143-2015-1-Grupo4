@@ -267,4 +267,9 @@ public class Restaurant{
     main_window.btn_gncuenta.addActionListener(new ListenerBtnGenerarCuenta(this));
     
   }
+
+
+  public void setMenu(Menu menu2) {
+    menu = menu2;
+  }
 }

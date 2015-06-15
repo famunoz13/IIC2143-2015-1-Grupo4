@@ -38,12 +38,16 @@ public class Cocina {
 	}
 
 	public void decifrarMensaje(Message m){
-	  //si es una orden nueva se agrega
+	  // si es una orden nueva se agrega
 	  if(m.getTipo() == 0)
 		  addOrden(m.getOrden());
 	  
-	  //si es una orden entregada, se libera
+	  // si es una orden entregada, se libera
 	  if(m.getTipo() == 1)
+		  liberarOrden(m.getOrden());
+	  
+	  // si se cancelo la orden, se elimina
+	  if(m.getTipo() == 2)
 		  liberarOrden(m.getOrden());
 	}
 	
@@ -82,6 +86,7 @@ public class Cocina {
             "Advertencia",
             JOptionPane.YES_NO_OPTION);
         if(dialogResult == JOptionPane.YES_OPTION){
+          client.CancelarOrden(j.getOrden());
           frontend.removeOrden(j.getOrden());
         }
       }
@@ -129,6 +134,7 @@ public class Cocina {
     
     j.getBtn_cancelar().addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
+    	client.DesprepararOrden(j.getOrden());
         frontend.Move(j.getOrden(), FILA.ATENDIDA, FILA.ATENDIENDO);
         addAtendiendoListeners(j);
       }

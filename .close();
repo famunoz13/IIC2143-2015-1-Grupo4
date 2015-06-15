@@ -1,0 +1,185 @@
+[1mdiff --git a/Cocina/.classpath b/Cocina/.classpath[m
+[1mindex 9b07da8..c908744 100644[m
+[1m--- a/Cocina/.classpath[m
+[1m+++ b/Cocina/.classpath[m
+[36m@@ -2,5 +2,6 @@[m
+ <classpath>[m
+ 	<classpathentry kind="src" path="src"/>[m
+ 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>[m
+[32m+[m	[32m<classpathentry combineaccessrules="false" kind="src" path="/IIC2143-2015-1-Grupo4"/>[m
+ 	<classpathentry kind="output" path="bin"/>[m
+ </classpath>[m
+[1mdiff --git a/Cocina/src/logic/Cocina.java b/Cocina/src/logic/Cocina.java[m
+[1mindex ae1140c..99ddb1c 100644[m
+[1m--- a/Cocina/src/logic/Cocina.java[m
+[1m+++ b/Cocina/src/logic/Cocina.java[m
+[36m@@ -1,9 +1,143 @@[m
+ package logic;[m
+ [m
+[32m+[m[32mimport java.awt.event.ActionEvent;[m
+[32m+[m[32mimport java.awt.event.ActionListener;[m
+[32m+[m
+[32m+[m[32mimport javax.swing.JButton;[m
+[32m+[m[32mimport javax.swing.JOptionPane;[m
+[32m+[m
+[32m+[m[32mimport app.VerOrdenWindow;[m
+[32m+[m[32mimport sockets.Client;[m
+[32m+[m[32mimport sockets.CocinaListener;[m
+[32m+[m[32mimport sockets.Message;[m
+[32m+[m[32mimport structures.Orden;[m
+[32m+[m[32mimport frontend.CocinaWindow;[m
+[32m+[m[32mimport frontend.JOrden;[m
+[32m+[m
+ public class Cocina {[m
+ [m
+[31m-	public static void main(String[] args) {[m
+[31m-		System.out.println("Hola mundo!");[m
+[32m+[m[32m  private CocinaWindow frontend;[m
+[32m+[m[32m  private CocinaListener server;[m
+[32m+[m[32m  private Client client;[m
+[32m+[m[41m  [m
+[32m+[m	[32mpublic Cocina(){[m
+[32m+[m		[32mfrontend = new CocinaWindow(this);[m
+[32m+[m		[32mfrontend.setVisible(true);[m
+[32m+[m[41m		[m
+[32m+[m		[32mclient = new Client("127.0.0.1", 3040);[m
+[32m+[m		[32mserver = new CocinaListener(3034, this);[m
+[32m+[m		[32mserver.start();[m
+[32m+[m[41m		[m
+[32m+[m
+[32m+[m		[32m//Recibir y liberar ordenes[m
+[32m+[m[32m//		recibirOrden(new Orden(1,null, null,null,""));[m
+[32m+[m[32m//		recibirOrden(new Orden(2,null, null,null,""));[m
+[32m+[m[32m//		recibirOrden(new Orden(3,null, null,null,""));[m
+[32m+[m[32m//		recibirOrden(new Orden(4,null, null,null,""));[m
+[32m+[m		[32maddOrden(new Orden(100,null, null,null,""));[m
+ 	}[m
+ [m
+[32m+[m	[32mpublic void decifrarMensaje(Message m){[m
+[32m+[m	[32m  //si es una orden nueva se agrega[m
+[32m+[m	[32m  if(m.getTipo() == 0)[m
+[32m+[m		[32m  addOrden(m.getOrden());[m
+[32m+[m[41m	  [m
+[32m+[m	[32m  //si es una orden entregada, se libera[m
+[32m+[m	[32m  if(m.getTipo() == 1)[m
+[32m+[m		[32m  liberarOrden(m.getOrden());[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic void liberarOrden(Orden o){[m
+[32m+[m	[32m  frontend.removeOrden(o);[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic void addOrden(Orden o){[m
+[32m+[m	[32m  //Añade ordenes a la fila de espera[m
+[32m+[m	[32m  JOrden j = frontend.addOrden(FILA.ESPERA, o);[m
+[32m+[m	[32m  addEsperaListeners(j);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m[32m  private void addEsperaListeners(final JOrden j) {[m
+[32m+[m[32m    removeAllListeners(j.getBtn_ver());[m
+[32m+[m[32m    removeAllListeners(j.getBtn_mid());[m
+[32m+[m[32m    removeAllListeners(j.getBtn_cancelar());[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_ver().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        new VerOrdenWindow(j.getOrden());[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_mid().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        frontend.Move(j.getOrden(), FILA.ESPERA, FILA.ATENDIENDO);[m
+[32m+[m[32m        addAtendiendoListeners(j);[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_cancelar().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        int dialogResult = JOptionPane.showConfirmDialog(null,[m[41m [m
+[32m+[m[32m            "La orden será elminada completamente\n ¿Está seguro que desea realizar esta acción?",[m
+[32m+[m[32m            "Advertencia",[m
+[32m+[m[32m            JOptionPane.YES_NO_OPTION);[m
+[32m+[m[32m        if(dialogResult == JOptionPane.YES_OPTION){[m
+[32m+[m[32m          frontend.removeOrden(j.getOrden());[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  private void addAtendiendoListeners(final JOrden j) {[m
+[32m+[m[32m    removeAllListeners(j.getBtn_ver());[m
+[32m+[m[32m    removeAllListeners(j.getBtn_mid());[m
+[32m+[m[32m    removeAllListeners(j.getBtn_cancelar());[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_ver().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        new VerOrdenWindow(j.getOrden());[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_mid().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        frontend.Move(j.getOrden(), FILA.ATENDIENDO, FILA.ATENDIDA);[m
+[32m+[m[32m        addAtendidasListeners(j);[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_cancelar().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        frontend.Move(j.getOrden(), FILA.ATENDIDA, FILA.ESPERA);[m
+[32m+[m[32m        addEsperaListeners(j);[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  private void addAtendidasListeners(final JOrden j) {[m
+[32m+[m[32m    removeAllListeners(j.getBtn_ver());[m
+[32m+[m[32m    removeAllListeners(j.getBtn_mid());[m
+[32m+[m[32m    removeAllListeners(j.getBtn_cancelar());[m
+[32m+[m[41m    [m
+[32m+[m[32m    client.IndicarOrdenPreparada(j.getOrden());[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_ver().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        new VerOrdenWindow(j.getOrden());[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[41m    [m
+[32m+[m[32m    j.getBtn_cancelar().addActionListener(new ActionListener() {[m
+[32m+[m[32m      public void actionPerformed(ActionEvent arg0) {[m
+[32m+[m[32m        frontend.Move(j.getOrden(), FILA.ATENDIDA, FILA.ATENDIENDO);[m
+[32m+[m[32m        addAtendiendoListeners(j);[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  private void removeAllListeners(JButton j) {[m
+[32m+[m[32m    for(ActionListener al : j.getActionListeners())[m
+[32m+[m[32m      j.removeActionListener(al);[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+ }[m
+[1mdiff --git a/Principal/src/app/MainWindow.java b/Principal/src/app/MainWindow.java[m
+[1mindex 9c3bd67..a936d10 100644[m
+[1m--- a/Principal/src/app/MainWindow.java[m
+[1m+++ b/Principal/src/app/MainWindow.java[m
+[36m@@ -287,5 +287,11 @@[m [mpublic class MainWindow extends JFrame {[m
+   public void updateMesas() {[m
+     panel_mesas.updateUI();[m
+   }[m
+[32m+[m[41m  [m
+[32m+[m[32m  public JPanel getJordenes()[m
+[32m+[m[32m  {[m
+[32m+[m	[32m  return j_ordenes;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+ [m
+ }[m
+[1mdiff --git a/Principal/src/app/Restaurant.java b/Principal/src/app/Restaurant.java[m
+[1mindex c53b6d7..580c5cb 100644[m
+[1m--- a/Principal/src/app/Restaurant.java[m
+[1m+++ b/Principal/src/app/Restaurant.java[m
+[36m@@ -14,9 +14,12 @@[m [mimport Listeners.ListenerBtnGenerarCuenta;[m
+ import Listeners.ListenerBtnGenerarOrden;[m
+ import Listeners.ListenerBtnLiberarMesas;[m
+ import struc

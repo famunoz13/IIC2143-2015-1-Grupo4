@@ -19,6 +19,7 @@ public class Sender {
 		
 	}
 	
+	//0 = nueva, 1 = entregada, 2 = cancelada
 	public void Send(int tipo, Orden orden)
 	{
 		try 

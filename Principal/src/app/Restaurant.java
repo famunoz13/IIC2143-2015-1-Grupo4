@@ -80,14 +80,30 @@ public class Restaurant{
 	  sender.Send(1, o);
   }
   
+  public void cancelarOrden(Orden o)
+  {
+	  sender.Send(2, o);
+  }
+  
   public void recibir(Orden o)
   {
-	  
 	  for(Component c:main_window.getJordenes().getComponents()){
 		  if(c.getClass() == JOrden.class){
 			  JOrden jo = (JOrden)c;
 			  if(jo.getOrden().getId() == o.getId())
 				  jo.MarcarComoLista(); 
+		  }
+	  }
+  }
+  
+  // Cambia estado de orden de LISTA a ESPERA
+  public void desprepararOrden(Orden o)
+  {
+	  for(Component c:main_window.getJordenes().getComponents()){
+		  if(c.getClass() == JOrden.class){
+			  JOrden jo = (JOrden)c;
+			  if(jo.getOrden().getId() == o.getId())
+				  jo.MarcarComoEspera(); 
 		  }
 	  }
   }

@@ -230,7 +230,7 @@ public class MainWindow extends JFrame {
     for(Component c:j_ordenes.getComponents()){
       if(c.getClass() == JOrden.class){
         JOrden jo = (JOrden)c;
-        if(jo.getOrden() == orden){
+        if(jo.getOrden().getId() == orden.getId()){
           j_ordenes.remove(jo);
           logica.getOrdenes().remove(orden);
           
@@ -245,6 +245,12 @@ public class MainWindow extends JFrame {
     }
     
     j_ordenes.updateUI();
+  }
+  
+  // Le indica a la cocina que una orden se cancelo
+  public void cancelarOrden(Orden o)
+  {
+	  
   }
   
   public void AddCuenta(Cuenta cuenta) {

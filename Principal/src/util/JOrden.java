@@ -122,6 +122,12 @@ public class JOrden extends JPanel implements ActionListener{
 	  setEstado(EstadoOrden.LISTA);
       btn_marcar.setEnabled(true);
   }
+  
+  public void MarcarComoEspera()
+  {
+	  setEstado(EstadoOrden.ESPERA);
+	  btn_marcar.setEnabled(false);
+  }
 
   public Orden getOrden(){
     return orden;

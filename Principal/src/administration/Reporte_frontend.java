@@ -189,13 +189,13 @@ public class Reporte_frontend extends JPanel{
     Collections.sort(g2_orden);
     
     for(String k: g2_orden){
-      dataset2.addValue(grafico2_map1.get(k), "Ventas", k);
+      dataset2.addValue(grafico2_map1.get(k), "Ingresos", k);
       dataset2.addValue(grafico2_map2.get(k), "Costos", k);
     }
     
     JFreeChart lineChart2 = ChartFactory.createLineChart(
-        "Ganancia/Costo por fecha",
-        "Fecha","($)",
+        "Ingresos/Costos por fecha",
+        "Fecha","Monto ($)",
         dataset2,
         PlotOrientation.VERTICAL,
         true,true,false);
@@ -244,7 +244,7 @@ public class Reporte_frontend extends JPanel{
     }
     
     JFreeChart piechart1 = ChartFactory.createPieChart(      
-        "Porcentaje de ventas por Item del menú",  // chart title 
+        "Porcentaje de ventas por ítem del menú",  // chart title 
         dataset1,        // data    
         true,           // include legend   
         true, 
@@ -288,7 +288,7 @@ public class Reporte_frontend extends JPanel{
     }
     
     JFreeChart piechart2 = ChartFactory.createPieChart(      
-        "Porcentaje de ventas por tipo de item",  // chart title 
+        "Porcentaje de ventas por tipo de ítem",  // chart title 
         dataset2,        // data    
         true,           // include legend   
         true, 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <menu>
-  <menuitem id="1" tipo="plato" precio="2000" nombre="Arroz con carne" descripcion="Basicamente arroz con carne"/>
-  <menuitem id="2" tipo="jugo" precio="800" nombre="Jugo de naranja" descripcion="Basicamente jugo de naranja"/>
+  <menuitem id="1" tipo="plato" precio="2000" costo="1200" nombre="Arroz con carne" descripcion="Basicamente arroz con carne"/>
+  <menuitem id="2" tipo="jugo" precio="800" costo="300" nombre="Jugo de naranja" descripcion="Basicamente jugo de naranja"/>
 </menu> 

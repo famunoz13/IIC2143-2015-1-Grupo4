@@ -47,6 +47,7 @@ public class LogicaAdministracion {
   private ArrayList<Mesa> mesas;
   private HashMap<JButton,Mesa> btn_mesa;
   private JButton selected = null;
+  private Admin_backend admins;
   
   public Restaurant restaurant;
   
@@ -111,6 +112,15 @@ public class LogicaAdministracion {
 
     admin_panel.add(menus.getFrontend());
     admin_panel.updateUI();
+  }
+  
+  private void setUsersPanel(){
+	  admin_panel.removeAll();
+	  
+	  Admin_frontend f = new Admin_frontend();
+	  admins = new Admin_backend(this, f);
+	  admin_panel.add(f);
+	  admin_panel.updateUI();
   }
   
   
@@ -217,6 +227,12 @@ public class LogicaAdministracion {
         setFormPanel();
       }
     });
+    
+    menu.getBtn_administradores().addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent arg0) {
+          setUsersPanel();
+        }
+      });
     
     
   }

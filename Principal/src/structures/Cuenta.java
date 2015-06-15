@@ -7,6 +7,7 @@ public class Cuenta {
   private Mesa mesa;
   private ArrayList<Orden> ordenes;
   private EstadoCuenta estado;
+  private int total;
  
   public Cuenta(int id, Mesa mesa, ArrayList<Orden> ordenes) {
     super();
@@ -14,6 +15,7 @@ public class Cuenta {
     this.mesa = mesa;
     this.ordenes = ordenes;
     estado = EstadoCuenta.PENDIENTE;
+    calcularTotal();
   }
   
   public int getId() {
@@ -36,5 +38,17 @@ public class Cuenta {
   }
   public void setEstado(EstadoCuenta estado) {
     this.estado = estado;
+  }
+  public int getTotal() {
+    return total;
+  }
+  private void calcularTotal() {
+    total = 0;
+    
+    for(Orden o:ordenes){
+      for(int i = 0; i < o.getItems().size(); i++){
+        total += o.getItems().get(i).getPrecio()*o.getCantidades().get(i);
+      }
+    }
   }
 }

@@ -48,7 +48,7 @@ public class Reporte_frontend extends JPanel{
     
     c.gridwidth = 1;
     
-    //Buttons bar
+    //Left panel
     initLeftPanel();
     c.weightx = 0.2;
     c.weighty = 1;
@@ -58,7 +58,7 @@ public class Reporte_frontend extends JPanel{
     c.insets = new Insets(6, 6, 6, 6);
     add(left_panel, c);
     
-    //edit area
+    //Right panel
     initRightPanel();
     c.weightx = 0.8;
     c.weighty = 1;

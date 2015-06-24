@@ -57,8 +57,8 @@ public class MainWindow extends JFrame {
     JComponent tab_administracion = logica.getAdministracion().getPanel();
     tabbedPane.addTab("Administrar", null, tab_administracion, "Administrar");
 
-    JComponent tab_opcion = makeTextPanel("Opciones");
-    tabbedPane.addTab("Opciones", null, tab_opcion, "Opciones");
+    //JComponent tab_opcion = makeTextPanel("Opciones");
+    //tabbedPane.addTab("Opciones", null, tab_opcion, "Opciones");
 
     panel.add(tabbedPane, BorderLayout.CENTER);
     
@@ -232,7 +232,7 @@ public class MainWindow extends JFrame {
         JOrden jo = (JOrden)c;
         if(jo.getOrden().getId() == orden.getId()){
           j_ordenes.remove(jo);
-          logica.getOrdenes().remove(orden);
+          //logica.getOrdenes().remove(orden);
           
           if(ordenes_size <= 4)
             j_ordenes.setLayout(new GridLayout(4, 1));

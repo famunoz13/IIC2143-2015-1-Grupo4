@@ -47,6 +47,7 @@ public class LogicaAdministracion {
   private ArrayList<Mesa> mesas;
   private HashMap<JButton,Mesa> btn_mesa;
   private JButton selected = null;
+  @SuppressWarnings("unused")
   private Admin_backend admins;
   
   public Restaurant restaurant;

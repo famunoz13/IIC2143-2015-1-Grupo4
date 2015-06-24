@@ -210,6 +210,7 @@ public class Restaurant{
   }
   
   public void removeOrden(Orden orden){
+    ordenes.remove(orden);
     main_window.removeOrden(orden);
   }
   

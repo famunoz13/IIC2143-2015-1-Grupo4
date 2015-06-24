@@ -63,7 +63,7 @@ public class CocinaWindow extends JFrame {
     c.gridwidth = 1;
     
     //Titulo: espera
-    JLabel titulo_espera = new JLabel("- Ã“rdenes en espera -", JLabel.CENTER);
+    JLabel titulo_espera = new JLabel("- Órdenes en espera -", JLabel.CENTER);
     titulo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
     c.weightx = 0.33;
     c.weighty = 0;
@@ -74,7 +74,7 @@ public class CocinaWindow extends JFrame {
     panel.add(titulo_espera, c);
     
     //Titulo: atendiendo
-    JLabel titulo_atendiendo = new JLabel("- Siendo atendias -", JLabel.CENTER);
+    JLabel titulo_atendiendo = new JLabel("- Siendo atendidas -", JLabel.CENTER);
     titulo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
     c.weightx = 0.33;
     c.weighty = 0;
@@ -85,7 +85,7 @@ public class CocinaWindow extends JFrame {
     panel.add(titulo_atendiendo, c);
     
     //Titulo: atendidas
-    JLabel titulo_atendidas = new JLabel("- Ã“rdenes listas -", JLabel.CENTER);
+    JLabel titulo_atendidas = new JLabel("- Órdenes listas -", JLabel.CENTER);
     titulo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
     c.weightx = 0.33;
     c.weighty = 0;

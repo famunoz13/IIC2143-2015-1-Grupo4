@@ -78,7 +78,7 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
       dispose();
       
       JOptionPane.showMessageDialog(logica.getMainWindow(),
-          "No se pueden crear ï¿½rdenes. Se debe ocupar una mesa primero.",
+          "No se pueden crear órdenes. Se debe ocupar una mesa primero.",
           "Error al generar orden",
           JOptionPane.WARNING_MESSAGE);
       return;
@@ -179,7 +179,7 @@ public class GenerarOrdenWindow extends JFrame implements ActionListener{
         
         if(items.size() == 0){
           JOptionPane.showMessageDialog(logica.getMainWindow(),
-              "No se ingresaron ï¿½tems del menï¿½",
+              "No se ingresaron ítems del menï¿½",
               "Error al crear orden",
               JOptionPane.WARNING_MESSAGE);
         }else{

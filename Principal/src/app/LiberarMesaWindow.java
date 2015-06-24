@@ -130,7 +130,7 @@ public class LiberarMesaWindow extends JFrame implements ActionListener{
           logica.getMainWindow().updateMesas();
         } else {
           JOptionPane.showMessageDialog(logica.getMainWindow(),
-            "La mesa tiene ï¿½rdenes o cuentas pendientes",
+            "La mesa tiene órdenes o cuentas pendientes",
             "Error al liberar mesa",
             JOptionPane.WARNING_MESSAGE);
           setVisible(false);

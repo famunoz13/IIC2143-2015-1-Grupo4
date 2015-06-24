@@ -58,7 +58,7 @@ public class Server implements Runnable{
 				// tipo == 0 indica que la orden fue cancelada
 				if(m.tipo == 0)
 				{
-					r.removeOrden(orden);
+					r.removeOrden2(orden);
 				}
 				
 				// tipo == 1 indica que la orden esta preparada

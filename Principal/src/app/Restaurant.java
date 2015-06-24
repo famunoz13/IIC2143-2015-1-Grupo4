@@ -213,6 +213,15 @@ public class Restaurant{
     main_window.removeOrden(orden);
   }
   
+  public void removeOrden2(Orden orden){
+	main_window.removeOrden(orden);
+	for(Orden o:ordenes)
+	{
+	  if(o.getId() == orden.getId())
+		  ordenes.remove(o);
+	}
+  }
+  
   public void AddCuenta(Cuenta cuenta) {
     cuentas.add(cuenta);
     cuenta.setId(id_cuenta++);

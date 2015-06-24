@@ -144,7 +144,7 @@ public class MainWindow extends JFrame {
     panel_ordenes = new JPanel(new BorderLayout());
 
     // TÃ­tulo
-    JLabel titulo = new JLabel("ï¿½rdenes", JLabel.CENTER);
+    JLabel titulo = new JLabel("Órdenes", JLabel.CENTER);
     panel_ordenes.add(titulo, BorderLayout.PAGE_START);
     titulo.setFont(new Font("Sans", Font.PLAIN, 18));
     titulo.setBorder(new EmptyBorder(4,4,4,4));

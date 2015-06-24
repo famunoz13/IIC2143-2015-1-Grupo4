@@ -36,7 +36,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
       dispose();
       
       JOptionPane.showMessageDialog(logica.getMainWindow(),
-          "No hay ï¿½rdenes disponibles para generar cuentas",
+          "No hay órdenes disponibles para generar cuentas",
           "Error al generar cuenta",
           JOptionPane.WARNING_MESSAGE);
       return;
@@ -83,7 +83,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
       dispose();
       
       JOptionPane.showMessageDialog(logica.getMainWindow(),
-          "No hay ï¿½rdenes disponibles para generar cuentas",
+          "No hay órdenes disponibles para generar cuentas",
           "Error al generar cuenta",
           JOptionPane.WARNING_MESSAGE);
       return;
@@ -98,7 +98,7 @@ public class GenerarCuentaWindow extends JFrame implements ActionListener{
     
     gbc.insets = new Insets(2,16,2,16);
     
-    JLabel label4 = new JLabel("Las ï¿½rdenes no entregadas no se considerarï¿½n",JLabel.CENTER);
+    JLabel label4 = new JLabel("Las órdenes no entregadas no se considerarán",JLabel.CENTER);
     gbc.gridx = 0;
     gbc.gridy = 2;
     add(label4,gbc);

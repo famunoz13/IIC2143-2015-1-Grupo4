@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<users>
-  <user id="1" username="admin" password="12345"/>
-</users> 
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><users><user id="1" password="12345" username="admin"/></users>

@@ -3,6 +3,7 @@ package administration;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,11 +12,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import structures.Menu;
-import structures.MenuItem;
+import structures.Usuario;
+
 
 public class Admin_frontend extends JPanel {
 	
@@ -24,15 +24,19 @@ public class Admin_frontend extends JPanel {
 	  private JButton btn_view, btn_add, btn_remove, btn_exit;
 	  
 	  //private JButton addUser_button;
-	  private JTextField user_textfield;
-	  private JPasswordField pass_textfield;
+	  public JTextField user_textfield;
+	  public JPasswordField pass_textfield;
 	  private JButton btn_AddUser, btn_RemoveUser;
 	  
 	  private JTable table;
 	  
-	  public Admin_frontend(){
+	  private ArrayList<Usuario> users;
+	  
+	  public Admin_frontend(ArrayList<Usuario> users){
 	    setLayout(new GridBagLayout());
 	    GridBagConstraints c = new GridBagConstraints();
+	    
+	    this.users = users;
 	    
 	    //################# Elementos ##################
 	    
@@ -135,19 +139,19 @@ public class Admin_frontend extends JPanel {
       right_panel.setLayout(new GridBagLayout());
 	    GridBagConstraints c = new GridBagConstraints();
 	    
-	    /*Object[][] data = new Object[menu.getItems().size()][6];
+	    Object[][] data = new Object[users.size()][3];
 	    int j=0;
-	    for(MenuItem i:menu.getItems()){
+	    for(Usuario i:users){
 	      Object[] row = new Object[6];
 	      row[0] = i.getId();
-	      row[1] = i.getNombre();
-	      row[2] = i.getTipo();
+	      row[1] = i.getUsername();
+	      row[2] = i.getPassword().replaceAll(".", "*");
 	      data[j] = row;
 	      
 	      j++;
-	    }*/
+	    }
 	    
-	    DefaultTableModel model = new DefaultTableModel(null, columnNames);
+	    DefaultTableModel model = new DefaultTableModel(data, columnNames);
 	    table = new JTable(model);
 	    JScrollPane scrollPane = new JScrollPane(table);
 	    c.weightx = 1;
@@ -169,8 +173,8 @@ public class Admin_frontend extends JPanel {
 	    right_panel.updateUI();
 	  }
 	  
-	  
 	  public void setAddView(){
+	    
 		  right_panel.removeAll();
 		  right_panel.setLayout(new GridBagLayout());
 		  GridBagConstraints c = new GridBagConstraints();
@@ -233,7 +237,7 @@ public class Admin_frontend extends JPanel {
 	    right_panel.add(user_label, c);
 	    
 	    //Textfield: usuario
-	    user_textfield = new JTextField("admin");
+	    user_textfield = new JTextField("");
 	    c.weightx = 0.20;
 	    c.weighty = 0;
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -253,7 +257,7 @@ public class Admin_frontend extends JPanel {
 	    right_panel.add(pass_label, c);
 	    
 	    //Textfield: contraseña
-	    pass_textfield = new JPasswordField("12345");
+	    pass_textfield = new JPasswordField("");
 	    c.weightx = 0.20;
 	    c.weighty = 0;
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -276,12 +280,6 @@ public class Admin_frontend extends JPanel {
 	    
 	    right_panel.updateUI();
 		  
-	  }
-	  
-	  @SuppressWarnings("deprecation")
-	  public void addUser(LogicaAdministracion l)
-	  {
-		  l.getUsers().put(user_textfield.getText(), pass_textfield.getText());
 	  }
 	  
 	  public void setRemoveView(){
@@ -326,7 +324,7 @@ public class Admin_frontend extends JPanel {
 	    right_panel.add(user_label, c);
 	    
 	    //Textfield: usuario
-	    user_textfield = new JTextField("admin");
+	    user_textfield = new JTextField("");
 	    c.weightx = 0.20;
 	    c.weighty = 0;
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -369,12 +367,6 @@ public class Admin_frontend extends JPanel {
       
 	    right_panel.updateUI();
 		  
-	  }
-	  
-	  public void removeUser(LogicaAdministracion l){
-		  if (l.getUsers().containsKey(user_textfield.getText())) {
-			  l.getUsers().remove(user_textfield.getText());
-		  }
 	  }
 	  
 	  public JButton getBtn_ver(){

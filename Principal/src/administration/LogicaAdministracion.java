@@ -32,11 +32,12 @@ import org.w3c.dom.NodeList;
 
 import app.Restaurant;
 import structures.Mesa;
+import structures.Usuario;
 
 
 public class LogicaAdministracion {
   private JPanel admin_panel;
-  private HashMap<String,String> users;
+  private ArrayList<Usuario>  users;
   private login_form form;
   private admin_menu menu;
   private editor_mesas editor;
@@ -56,7 +57,7 @@ public class LogicaAdministracion {
     restaurant = r;
     
     //Cargar cuentas de administradores
-    users = new HashMap<>();
+    users = new ArrayList<>();
     loadUsersXML("administradores.xml");
     
     //Crear frontend inicial
@@ -65,7 +66,7 @@ public class LogicaAdministracion {
 
   }
   
-  public HashMap<String, String> getUsers(){
+  public ArrayList<Usuario> getUsers(){
 	  return users;
   }
   
@@ -118,7 +119,7 @@ public class LogicaAdministracion {
   private void setUsersPanel(){
 	  admin_panel.removeAll();
 	  
-	  Admin_frontend f = new Admin_frontend();
+	  Admin_frontend f = new Admin_frontend(users);
 	  admins = new Admin_backend(this, f);
 	  admin_panel.add(f);
 	  admin_panel.updateUI();
@@ -175,6 +176,14 @@ public class LogicaAdministracion {
     });
   }
 
+  public Usuario getUserByUsername(String username){
+    for(Usuario u:users){
+      if(u.getUsername().equals(username))
+        return u;
+    }
+    return null;
+  }
+  
   public void initLoginButton(){
     JButton b = form.getButton();
     b.addActionListener(new ActionListener() {
@@ -182,15 +191,16 @@ public class LogicaAdministracion {
         String user = form.getUser();
         String pass = form.getPassword();
         
-        String pass_stored = users.get(user);
+        Usuario u = getUserByUsername(user);
         
-        if(pass_stored == null){
+        
+        if(u == null){
           JOptionPane.showMessageDialog(form,
               "Ese usuario no existe",
               "Error al ingresar",
               JOptionPane.WARNING_MESSAGE);
         }else{
-
+          String pass_stored = u.getPassword();
           if(!pass_stored.equals(pass)){
             JOptionPane.showMessageDialog(form,
                 "El usuario y la contraseña no coinciden",
@@ -450,6 +460,50 @@ public class LogicaAdministracion {
   
   }
   
+  public void SaveUsersXML(){
+    String path = "administradores.xml";
+    try {
+      DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+   
+      // root elements
+      Document doc = docBuilder.newDocument();
+      Element rootElement = doc.createElement("users");
+      doc.appendChild(rootElement);
+      
+      
+      for (Usuario u : users) {
+        Element user_node = doc.createElement("user");
+        rootElement.appendChild(user_node);
+     
+        Attr id = doc.createAttribute("id");
+        id.setValue(u.getId()+"");
+        user_node.setAttributeNode(id);
+        
+        Attr user = doc.createAttribute("username");
+        user.setValue(u.getUsername());
+        user_node.setAttributeNode(user);
+  
+        Attr pass = doc.createAttribute("password");
+        pass.setValue(u.getPassword());
+        user_node.setAttributeNode(pass);
+      }
+  
+      // write the content into xml file
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      Transformer transformer = transformerFactory.newTransformer();
+      DOMSource source = new DOMSource(doc);
+      StreamResult result = new StreamResult(new File(path));
+      transformer.transform(source, result);
+ 
+    } catch (ParserConfigurationException pce) {
+      pce.printStackTrace();
+    } catch (TransformerException tfe) {
+      tfe.printStackTrace();
+    }
+  
+  }
+  
   private JButton addBtnMesa(final Mesa mesa){
     final JButton b = editor.addBtnMesa(mesa);
     btn_mesa.put(b, mesa);
@@ -539,10 +593,11 @@ public class LogicaAdministracion {
         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
           Element eElement = (Element) nNode;
 
+          int id = Integer.parseInt(eElement.getAttribute("id"));
           String username = eElement.getAttribute("username");
           String password = eElement.getAttribute("password");
 
-          users.put(username, password);
+          users.add(new Usuario(id, username, password));
         }
       }
     } catch (Exception e) {

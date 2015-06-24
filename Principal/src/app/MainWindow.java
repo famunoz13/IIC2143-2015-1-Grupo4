@@ -144,7 +144,7 @@ public class MainWindow extends JFrame {
     panel_ordenes = new JPanel(new BorderLayout());
 
     // TÃ­tulo
-    JLabel titulo = new JLabel("Órdenes", JLabel.CENTER);
+    JLabel titulo = new JLabel("ï¿½rdenes", JLabel.CENTER);
     panel_ordenes.add(titulo, BorderLayout.PAGE_START);
     titulo.setFont(new Font("Sans", Font.PLAIN, 18));
     titulo.setBorder(new EmptyBorder(4,4,4,4));
@@ -202,6 +202,7 @@ public class MainWindow extends JFrame {
 
   }
 
+  @SuppressWarnings("unused")
   private JComponent makeTextPanel(String text) {
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel(text);
@@ -232,6 +233,13 @@ public class MainWindow extends JFrame {
         JOrden jo = (JOrden)c;
         if(jo.getOrden().getId() == orden.getId()){
           j_ordenes.remove(jo);
+
+          for(int i=0; i<logica.getOrdenes().size(); i++)
+          {
+        	  if(logica.getOrdenes().get(i).getId() == orden.getId())
+        		  logica.getOrdenes().remove(i);
+          }
+
           //logica.getOrdenes().remove(orden);
           
           if(ordenes_size <= 4)

@@ -232,7 +232,13 @@ public class MainWindow extends JFrame {
         JOrden jo = (JOrden)c;
         if(jo.getOrden().getId() == orden.getId()){
           j_ordenes.remove(jo);
-          logica.getOrdenes().remove(orden);
+          
+          for(int i=0; i<logica.getOrdenes().size(); i++)
+          {
+        	  if(logica.getOrdenes().get(i).getId() == orden.getId())
+        		  logica.getOrdenes().remove(i);
+          }
+          //logica.getOrdenes().remove(orden);
           
           if(ordenes_size <= 4)
             j_ordenes.setLayout(new GridLayout(4, 1));
